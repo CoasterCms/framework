@@ -1,0 +1,9 @@
+*
+!banners/
+!catalogue/
+!cms/
+!pdfs/
+!system/
+!team/
+!.gitignore
+!config.php
