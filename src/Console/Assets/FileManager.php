@@ -92,6 +92,9 @@ class FileManager extends AbstractAsset
         $this->_backupOldConfigFiles(storage_path('uploads'));
         $this->copyFrom($this->_publicFiles('uploads'), public_path('uploads'), false, false);
         $this->copyFrom($this->_publicFiles('uploads/secure'), storage_path('uploads/secure'), false, false);
+        // only delete if no changes
+        $this->_deleteOldConfigFiles(public_path('uploads'));
+        $this->_deleteOldConfigFiles(storage_path('uploads'));
     }
 
     protected function _backupOldConfigFiles($uploadPath)
@@ -102,6 +105,21 @@ class FileManager extends AbstractAsset
                     $this->_backupOldConfigFiles($uploadPath . '/' . $item);
                 } elseif ($item == 'config.php') {
                     rename($uploadPath . '/config.php', $uploadPath . '/config.php.old');
+                }
+            }
+        }
+    }
+
+    protected function _deleteOldConfigFiles($uploadPath)
+    {
+        foreach (scandir($uploadPath) as $item) {
+            if (!in_array($item, ['.', '..'])) {
+                if (is_dir($uploadPath . '/' . $item)) {
+                    $this->_deleteOldConfigFiles($uploadPath . '/' . $item);
+                } elseif ($item == 'config.php.old' && file_exists($uploadPath . '/config.php')) {
+                    if (file_get_contents($uploadPath . '/' . $item) == file_get_contents($uploadPath . '/config.php')) {
+                        unlink($uploadPath . '/' . $item);
+                    }
                 }
             }
         }
