@@ -1,4 +1,4 @@
-<?php namespace CoasterCms\Helpers\Cms;
+<?php namespace CoasterCms\Auth;
 
 use CoasterCms\Events\Admin\AuthRoute;
 use CoasterCms\Models\User;

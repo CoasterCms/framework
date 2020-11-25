@@ -3,7 +3,6 @@
 return [
 
     'view' => realpath(__DIR__ . '/../resources/views/frontend'),
-    'croppa_handle' => 'coaster.*|uploads.*|themes.*',
     'bootstrap_version' => '3', // for pagination (supports 3 or 4)
     'strong_tags' => '0',
     'form_error_class' => 'has-error',

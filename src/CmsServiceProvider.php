@@ -1,6 +1,8 @@
 <?php namespace CoasterCms;
 
-use Auth;
+use CoasterCms\Auth\CoasterGuard;
+use CoasterCms\Auth\CoasterUserProvider;
+use CoasterCms\Croppa\Url;
 use CoasterCms\Events\Cms\LoadAuth;
 use CoasterCms\Events\Cms\LoadMiddleware;
 use CoasterCms\Events\Cms\SetViewPaths;
@@ -9,6 +11,7 @@ use CoasterCms\Http\Middleware\GuestAuth;
 use CoasterCms\Http\Middleware\SecureUpload;
 use CoasterCms\Http\Middleware\UploadChecks;
 use CoasterCms\Libraries\Builder\FormMessage;
+use Illuminate\Auth\AuthManager;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
@@ -29,10 +32,17 @@ class CmsServiceProvider extends ServiceProvider
      *
      * @param Router $router
      * @param Kernel $kernel
+     * @param AuthManager $authManager
      * @return void
      */
-    public function boot(Router $router, Kernel $kernel)
+    public function boot(Router $router, Kernel $kernel, AuthManager $authManager)
     {
+        // publishable config
+        $this->publishes([
+            COASTER_ROOT . '/config/publish/auth.php' => config_path('auth.php'),
+            COASTER_ROOT . '/config/publish/croppa.php' => config_path('croppa.php'),
+        ], 'coaster.config');
+
         // add router middleware
         $globalMiddleware = [
             UploadChecks::class
@@ -51,33 +61,25 @@ class CmsServiceProvider extends ServiceProvider
             $router->middlewareGroup($routerMiddlewareName, $routerMiddlewareClass);
         }
 
-        // use coater guard and user provider
-        $authGuard = Helpers\Cms\CoasterGuard::class;
-        $authUserProvider = Providers\CoasterAuthUserProvider::class;
-        event(new LoadAuth($authGuard, $authUserProvider));
-        if ($authGuard && $authUserProvider) {
-            Auth::extend('coaster', function ($app) use ($authGuard, $authUserProvider) {
-                $guard = new $authGuard(
-                    'coasterguard',
-                    new $authUserProvider($app['hash'], config('auth.providers.users.model')),
-                    $app['session.store'],
-                    $app['request']
-                );
-
-                // set cookie jar for cookies
-                if (method_exists($guard, 'setCookieJar')) {
-                    $guard->setCookieJar($this->app['cookie']);
-                }
-                if (method_exists($guard, 'setDispatcher')) {
-                    $guard->setDispatcher($this->app['events']);
-                }
-                if (method_exists($guard, 'setRequest')) {
-                    $guard->setRequest($this->app->refresh('request', $guard, 'setRequest'));
-                }
-
-                return $guard;
-            });
-        }
+        // add coater guard & provider
+        $authManager->extend('coaster-guard', function ($app, $name, $config) {
+            $provider = $app['auth']->createUserProvider($config['provider'] ?? null);
+            $guard = new CoasterGuard($name, $provider, $app['session.store']);
+            // replicate createSessionDriver in AuthManager
+            if (method_exists($guard, 'setCookieJar')) {
+                $guard->setCookieJar($this->app['cookie']);
+            }
+            if (method_exists($guard, 'setDispatcher')) {
+                $guard->setDispatcher($this->app['events']);
+            }
+            if (method_exists($guard, 'setRequest')) {
+                $guard->setRequest($this->app->refresh('request', $guard, 'setRequest'));
+            }
+            return $guard;
+        });
+        $authManager->provider('coaster-provider', function ($app, $config) {
+            return new CoasterUserProvider($app['hash'], $config['model']);
+        });
 
         // load coaster views
         $adminViews = [
@@ -115,11 +117,19 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register('Bkwld\Croppa\ServiceProvider');
         $this->app->register('Collective\Html\HtmlServiceProvider');
 
+        // Overwrite Croppa Url
+        $this->app->singleton('Bkwld\Croppa\URL', function($app) {
+            $config = $this->app->make('config')->get('croppa');
+            if (isset($config['signing_key']) && $config['signing_key'] == 'app.key') {
+                $config['signing_key'] = $this->app->make('config')->get('app.key');
+            }
+            return new Url($config);
+        });
+
         // register aliases
         $loader = AliasLoader::getInstance();
         $loader->alias('Form', 'Collective\Html\FormFacade');
         $loader->alias('HTML', 'Collective\Html\HtmlFacade');
-        $loader->alias('Croppa', 'CoasterCms\Helpers\Cms\Croppa\CroppaFacade');
         $loader->alias('CmsBlockInput', 'CoasterCms\Helpers\Cms\View\CmsBlockInput');
         $loader->alias('FormMessage', 'CoasterCms\Facades\FormMessage');
         $loader->alias('AssetBuilder', 'CoasterCms\Libraries\Builder\AssetBuilder');

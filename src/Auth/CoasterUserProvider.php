@@ -1,9 +1,9 @@
-<?php namespace CoasterCms\Providers;
+<?php namespace CoasterCms\Auth;
 
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class CoasterAuthUserProvider extends EloquentUserProvider
+class CoasterUserProvider extends EloquentUserProvider
 {
 
     /**

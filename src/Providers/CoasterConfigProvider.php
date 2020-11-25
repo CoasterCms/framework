@@ -40,25 +40,6 @@ class CoasterConfigProvider extends ServiceProvider
 
         Setting::loadAll($configFile, 'coaster', $useDatabaseSettings);
 
-        $updatedAppName = (config('app.name') == 'Coaster CMS' && config('coaster::site.name')) ? config('coaster::site.name') : config('app.name');
-        $updatedAppUrl = (config('app.url') == 'http://localhost' && !app()->runningInConsole()) ? url()->to('/') : config('app.url');
-
-        $overrideConfigValues = [
-            'app.name' => $updatedAppName,
-            'app.url' => $updatedAppUrl,
-            'auth.guards.web.driver' => 'coaster',
-            'auth.providers.users.model' => User::class,
-            'croppa.src_dir' => public_path(),
-            'croppa.crops_dir' => public_path() . '/cache',
-            'croppa.path' => 'cache/(' . config('coaster::frontend.croppa_handle') . ')$'
-        ];
-
-        event(new LoadedConfig($overrideConfigValues));
-
-        foreach ($overrideConfigValues as $attribute => $value) {
-            app()->config->set($attribute, $value);
-        }
-
         if (Install::isComplete()) {
             if (!$db) {
                 abort(503, 'Database error, settings table could not be found');
