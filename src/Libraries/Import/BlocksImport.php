@@ -15,6 +15,7 @@ use CoasterCms\Models\ThemeBlock;
 use CoasterCms\Models\ThemeTemplate;
 use CoasterCms\Models\ThemeTemplateBlock;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 use PageBuilder;
 use View;
 
@@ -476,7 +477,7 @@ class BlocksImport extends AbstractImport
                     }
                 }
                 if ($createNewCategory) {
-                    $categoryName = str_plural(str_replace('_', ' ', $blockName));
+                    $categoryName = Str::plural(str_replace('_', ' ', $blockName));
                     $defaultCategorySearchStrings[$categoryName] = [];
                     $extraMatches[strtolower($categoryName)] = [$blockName];
                 }

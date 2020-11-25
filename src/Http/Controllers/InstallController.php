@@ -167,10 +167,10 @@ class InstallController extends Controller
 
         try {
             $envFileContents = File::getEnvContents();
-            $dotEnv = Dotenv::create([base_path()]);
-            foreach ($dotEnv->load() as $envVar => $envValue) {
+            $envFileVars = Dotenv::parse($envFileContents);
+            foreach ($envFileVars as $envVar => $envValue) {
                 if (key_exists($envVar, $updateEnv)) {
-                    $envFileContents = preg_replace('#^\W*' . $envVar . '\W*=\W*' . $envValue . '.\W*$#m', $envVar . '=' . $updateEnv[$envVar], $envFileContents);
+                    $envFileContents = preg_replace('#^[\s"]*' . $envVar . '[\s"]*=.*$#m', $envVar . '=' . $updateEnv[$envVar], $envFileContents);
                 }
             }
 
@@ -187,9 +187,11 @@ class InstallController extends Controller
 
     public function runDatabaseMigrations($skipEnvCheck = false)
     {
+        Dotenv::createImmutable(base_path());
         $unMatchedEnvVars = [];
-        $envFile = Dotenv::create([base_path()]);
-        foreach ($envFile->load() as $envVar => $envValue) {
+        $envFileContents = File::getEnvContents();
+        $envFileVars = Dotenv::parse($envFileContents);
+        foreach ($envFileVars as $envVar => $envValue) {
             $envValue = trim($envValue, '"');
             if (getenv($envVar) !== false && getenv($envVar) != $envValue) {
                 $unMatchedEnvVars[$envVar] = $envValue;

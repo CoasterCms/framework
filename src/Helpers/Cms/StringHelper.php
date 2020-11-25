@@ -1,5 +1,7 @@
 <?php namespace CoasterCms\Helpers\Cms;
 
+use Illuminate\Support\Str;
+
 class StringHelper
 {
 
@@ -8,7 +10,7 @@ class StringHelper
         if (strlen($string) < $length) {
             return $string;
         } else {
-            $str = str_random(15);
+            $str = Str::random(15);
             $string =  substr($string, 0, strpos(wordwrap($string, $length, "/$str/"), "/$str/")) . ' ...';
             return substr($string, -1) == '.' ? $string : $string . ' ...';
         }

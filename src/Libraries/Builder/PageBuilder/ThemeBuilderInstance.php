@@ -9,6 +9,7 @@ use CoasterCms\Libraries\Builder\ViewClasses\PageDetails;
 use CoasterCms\Libraries\Import\Blocks\SelectOptionImport;
 use CoasterCms\Models\Block;
 use CoasterCms\Models\Menu;
+use Illuminate\Support\Str;
 use View;
 
 class ThemeBuilderInstance extends DefaultInstance
@@ -448,7 +449,7 @@ class ThemeBuilderInstance extends DefaultInstance
         $ignoreOpts = [];
         foreach ($ignoreSnakeCaseOpts as $ignoreSnakeCaseOpt) {
             $ignoreOpts[$ignoreSnakeCaseOpt] = null;
-            $ignoreOpts[camel_case($ignoreSnakeCaseOpt)] = null;
+            $ignoreOpts[Str::camel($ignoreSnakeCaseOpt)] = null;
         }
 
         foreach (array_intersect_key($options, $ignoreOpts) as $ignoreValue) {
@@ -471,7 +472,7 @@ class ThemeBuilderInstance extends DefaultInstance
         $returnOpts = [];
         foreach ($returnSnakeCaseOpts as $returnSnakeCaseOpt) {
             $returnOpts[$returnSnakeCaseOpt] = null;
-            $returnOpts[camel_case($returnSnakeCaseOpt)] = null;
+            $returnOpts[Str::camel($returnSnakeCaseOpt)] = null;
         }
 
         foreach (array_intersect_key($options, $returnOpts) as $returnValue) {

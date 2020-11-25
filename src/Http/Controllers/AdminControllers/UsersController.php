@@ -6,6 +6,7 @@ use CoasterCms\Http\Controllers\AdminController as Controller;
 use CoasterCms\Models\AdminLog;
 use CoasterCms\Models\User;
 use CoasterCms\Models\UserRole;
+use Illuminate\Support\Str;
 use Hash;
 use Mail;
 use Request;
@@ -147,7 +148,7 @@ class UsersController extends Controller
 
         if ($v->passes() && !$perm_issue) {
 
-            $password = str_random(8);
+            $password = Str::random(8);
             $new_user = new User;
             $new_user->email = Request::input('email');
             $new_user->role_id = Request::input('role');

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Auth;
 use Eloquent;
 use Hash;
@@ -129,7 +130,7 @@ class User extends Eloquent implements AuthenticatableContract, AuthorizableCont
      */
     public function sendPasswordResetNotification($routeName = 'coaster.admin.login.password.change')
     {
-        $this->tmp_code = urlencode(str_random(32) . microtime());
+        $this->tmp_code = urlencode(Str::random(32) . microtime());
         $this->tmp_code_created = new Carbon();
         $this->save();
         $this->notify(new PasswordReset($this, $routeName));
