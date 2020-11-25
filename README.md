@@ -21,5 +21,5 @@ The steps are are as follows:
 5. Go to the root directory of your project
 6. Run the script <code>php artisan coaster:update-assets</code>
 7. Manually copy/merge the files in config/publish/ to your root config directory or run script <code>php artisan vendor:publish --force --tag coaster.config</code>
-8. Go to a web browser and follow the install script that should have appeared (on <your url>/install)
+8. Go to a web browser and follow the install script that should have appeared (on [your url]/install)
 9. Upload or create a theme
