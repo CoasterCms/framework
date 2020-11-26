@@ -38,8 +38,7 @@ class CmsServiceProvider extends ServiceProvider
     {
         // publishable config
         $this->publishes([
-            COASTER_ROOT . '/config/publish/auth.php' => config_path('auth.php'),
-            COASTER_ROOT . '/config/publish/croppa.php' => config_path('croppa.php'),
+            COASTER_ROOT . '/config/coaster.php' => config_path('coaster.php'),
         ], 'coaster.config');
 
         // add router middleware
