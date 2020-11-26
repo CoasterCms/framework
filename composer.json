@@ -36,5 +36,12 @@
         "psr-4": {
             "CoasterCms\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CoasterCms\\CmsServiceProvider"
+            ]
+        }
     }
 }
