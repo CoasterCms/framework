@@ -102,8 +102,8 @@ Route::get('gallery/edit/{pageId?}/{blockId?}', ['uses' => 'GalleryController@ge
 Route::get('gallery/update/{pageId?}/{blockId?}', ['uses' => 'GalleryController@getUpdate', 'as' => 'gallery.update'])->where(['pageId' => '\w+', 'blockId' => '\w+']);
 Route::post('gallery/caption/{pageId?}/{blockId?}', ['uses' => 'GalleryController@postCaption', 'as' => 'gallery.caption'])->where(['pageId' => '\w+', 'blockId' => '\w+']);
 Route::post('gallery/sort/{pageId?}/{blockId?}', ['uses' => 'GalleryController@postSort', 'as' => 'gallery.sort'])->where(['pageId' => '\w+', 'blockId' => '\w+']);;
-Route::post('gallery/update/{pageId?}/{blockId?}', ['uses' => 'GalleryController@postUpdate', 'as' => 'gallery.update'])->where(['pageId' => '\w+', 'blockId' => '\w+']);
-Route::delete('gallery/update/{pageId?}/{blockId?}', ['uses' => 'GalleryController@deleteUpdate', 'as' => 'gallery.update.post'])->where(['pageId' => '\w+', 'blockId' => '\w+']);
+Route::post('gallery/update/{pageId?}/{blockId?}', ['uses' => 'GalleryController@postUpdate', 'as' => 'gallery.update.post'])->where(['pageId' => '\w+', 'blockId' => '\w+']);
+Route::delete('gallery/update/{pageId?}/{blockId?}', ['uses' => 'GalleryController@deleteUpdate', 'as' => 'gallery.update.delete'])->where(['pageId' => '\w+', 'blockId' => '\w+']);
 
 Route::get('forms/list/{pageId?}', ['uses' => 'FormsController@getList', 'as' => 'forms.list']);
 Route::get('forms/submissions/{pageId?}/{blockId?}', ['uses' => 'FormsController@getSubmissions', 'as' => 'forms.submissions'])->where(['pageId' => '\w+', 'blockId' => '\w+']);
