@@ -27,6 +27,9 @@
         "fakerphp/faker": "^1.9.1"
     },
     "autoload": {
+        "files": [
+            "src/functions.php"
+        ],
         "psr-4": {
             "CoasterCms\\": "src/",
             "CoasterCmsDatabase\\Seeds\\": "database/seeds/"

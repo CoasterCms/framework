@@ -19,7 +19,7 @@
     'admin' => [
         'url' => 'admin', // admin url (make sure to cache routes if changing)
         'help_link' => 'https://www.coastercms.org/documentation/user-documentation', // help url in admin
-        'view' => realpath(__DIR__ . '/../resources/views/admin'), // path to default admin views
+        'view' => coaster_base_path('resources/views/admin'), // path to default admin views
         'public' => '/coaster', // path inside public to store admin assets
         'bootstrap_version' => '3', // for pagination view in admin (supports 3 or 4)
         'tinymce' => '', // can set to compressed
@@ -34,7 +34,7 @@
      * Frontend settings
      */
     'frontend' => [
-        'view' => realpath(__DIR__ . '/../resources/views/frontend'), // path to default frontend, non theme specific, views
+        'view' => coaster_base_path('resources/views/frontend'), // path to default frontend, non theme specific, views
         'bootstrap_version' => '4', // for rendering pagination (supports 3 or 4)
         'strong_tags' => '0', // add strong tags to meta_keywords on page
         'form_error_class' => 'has-error', // error class used in FormMessage
