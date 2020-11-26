@@ -16,7 +16,7 @@ The steps are are as follows:
 
 1. Add "web-feet/coasterframework": "~8.0" to the composer.json file and run composer update
 2. Go to your config/app.php file
-3. Add the service provider CoasterCms\Providers\CoasterRoutesProvider::class (near the end as it registers a catch-all route)
+3. Add the provider CoasterCms\Providers\CoasterRoutesProvider::class (near the end as it registers a catch-all route)
 5. Go to the root directory of your project
 6. Run the script <code>php artisan coaster:update-assets</code>
 7. Run the script <code>php artisan vendor:publish --tag coaster.config</code>
