@@ -177,7 +177,7 @@ class Repeater extends AbstractBlock
 
             $this->insertRow($formData);
 
-            Email::sendFromFormData([$this->_block->name . '-form'], $formData, config('coaster::site.name') . ': New Form Submission - ' . $this->_block->label);
+            Email::sendFromFormData([$this->_block->name . '-form'], $formData, config('coaster.site.name') . ': New Form Submission - ' . $this->_block->label);
 
             return \redirect(Request::url());
         } else {

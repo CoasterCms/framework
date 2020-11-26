@@ -40,9 +40,9 @@ class Template extends Eloquent
         $numb_type = array();
         $blockIds = Block::getBlockIdsOfType($type);
         if (!empty($blockIds)) {
-            $sw = ThemeBlock::where('theme_id', '=', config('coaster::frontend.theme'))
+            $sw = ThemeBlock::where('theme_id', '=', config('coaster.frontend.theme'))
                 ->whereIn('block_id', $blockIds)->where('show_in_pages', '=', 1)->count();
-            $themeTemplates = ThemeTemplate::where('theme_id', '=', config('coaster::frontend.theme'))
+            $themeTemplates = ThemeTemplate::where('theme_id', '=', config('coaster.frontend.theme'))
                 ->with(['blocks' => function ($q) use($blockIds) { $q->whereIn('block_id', $blockIds); }])->get();
             foreach ($themeTemplates as $themeTemplate) {
                 $numb_type[$themeTemplate->template_id] = $sw + $themeTemplate->blocks->count();

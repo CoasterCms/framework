@@ -142,8 +142,8 @@ class UpdateAssets extends Command
      */
     protected function _initVersions()
     {
-        $this->_folders['public'] = public_path(trim(config('coaster::admin.public'), '/')) . '/';
-        $this->_folders['storage'] = storage_path(trim(config('coaster::site.storage_path'), '/')) . '/';
+        $this->_folders['public'] = public_path(trim(config('coaster.admin.public'), '/')) . '/';
+        $this->_folders['storage'] = storage_path(trim(config('coaster.site.storage_path'), '/')) . '/';
         foreach ($this->_folders as $folder) {
             if (!file_exists($folder)) {
                 mkdir($folder, 0777, true);

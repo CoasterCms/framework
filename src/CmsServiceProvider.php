@@ -32,10 +32,9 @@ class CmsServiceProvider extends ServiceProvider
      *
      * @param Router $router
      * @param Kernel $kernel
-     * @param AuthManager $authManager
      * @return void
      */
-    public function boot(Router $router, Kernel $kernel, AuthManager $authManager)
+    public function boot(Router $router, Kernel $kernel)
     {
         // publishable config
         $this->publishes([
@@ -61,7 +60,47 @@ class CmsServiceProvider extends ServiceProvider
             $router->middlewareGroup($routerMiddlewareName, $routerMiddlewareClass);
         }
 
+        // load coaster views
+        $adminViews = [
+            rtrim(config('coaster.admin.view'), '/')
+        ];
+        $frontendViews = [
+            rtrim(config('coaster.frontend.view'), '/')
+        ];
+        event(new SetViewPaths($adminViews, $frontendViews));
+        $this->loadViewsFrom($adminViews, 'coaster');
+        $this->loadViewsFrom($frontendViews, 'coasterCms');
+
+        $this->app->singleton('formMessage', function () {
+            return new FormMessage($this->app['session'], 'default', config('coaster.frontend.form_error_class'));
+        });
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        if (!defined('COASTER_ROOT')) {
+            define('COASTER_ROOT', dirname(__DIR__));
+        }
+
+        // register third party providers (above config provider as that contains config overrides)
+        $this->app->register('Bkwld\Croppa\ServiceProvider');
+        $this->app->register('Collective\Html\HtmlServiceProvider');
+
+        // register coaster providers
+        $this->app->register('CoasterCms\Providers\CoasterEventsProvider');
+        $this->app->register('CoasterCms\Providers\CoasterConfigProvider');
+        $this->app->register('CoasterCms\Providers\CoasterConsoleProvider');
+        $this->app->register('CoasterCms\Providers\CoasterPageBuilderProvider');
+
         // add coater guard & provider
+        /** @var AuthManager $authManager */
+        $authManager = $this->app['auth'];
+        $this->app['config']->set('auth.providers.coaster-user', ['driver' => 'coaster-provider', 'model' => \CoasterCms\Models\User::class]);
         $authManager->extend('coaster-guard', function ($app, $name, $config) {
             $provider = $app['auth']->createUserProvider($config['provider'] ?? null);
             $guard = new CoasterGuard($name, $provider, $app['session.store']);
@@ -80,42 +119,6 @@ class CmsServiceProvider extends ServiceProvider
         $authManager->provider('coaster-provider', function ($app, $config) {
             return new CoasterUserProvider($app['hash'], $config['model']);
         });
-
-        // load coaster views
-        $adminViews = [
-            rtrim(config('coaster::admin.view'), '/')
-        ];
-        $frontendViews = [
-            rtrim(config('coaster::frontend.view'), '/')
-        ];
-        event(new SetViewPaths($adminViews, $frontendViews));
-        $this->loadViewsFrom($adminViews, 'coaster');
-        $this->loadViewsFrom($frontendViews, 'coasterCms');
-
-        $this->app->singleton('formMessage', function () {
-            return new FormMessage($this->app['session'], 'default', config('coaster::frontend.form_error_class'));
-        });
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        if (!defined('COASTER_ROOT')) {
-            define('COASTER_ROOT', dirname(__DIR__));
-        }
-
-        $this->app->register('CoasterCms\Providers\CoasterEventsProvider');
-        $this->app->register('CoasterCms\Providers\CoasterConfigProvider');
-        $this->app->register('CoasterCms\Providers\CoasterConsoleProvider');
-        $this->app->register('CoasterCms\Providers\CoasterPageBuilderProvider');
-
-        // register third party providers
-        $this->app->register('Bkwld\Croppa\ServiceProvider');
-        $this->app->register('Collective\Html\HtmlServiceProvider');
 
         // Overwrite Croppa Url
         $this->app->singleton('Bkwld\Croppa\URL', function($app) {

@@ -36,7 +36,7 @@ class AdminController extends Controller
         $this->responseCode = 200;
         $this->layout = 'coaster::template.main';
         $this->layoutData = [
-            'site_name' => config('coaster::site.name'),
+            'site_name' => config('coaster.site.name'),
             'title' => ucwords(Request::segment(2)),
             'modals' => '',
             'content' => '',

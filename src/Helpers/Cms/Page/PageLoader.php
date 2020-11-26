@@ -191,7 +191,7 @@ class PageLoader
      */
     public function _loadPageTemplate()
     {
-        $theme = Theme::find(config('coaster::frontend.theme'));
+        $theme = Theme::find(config('coaster.frontend.theme'));
         $lowestLevelPage = count($this->pageLevels) > 0 ? end($this->pageLevels) : null;
 
         $this->theme = !empty($theme) && is_dir(base_path('/resources/views/themes/' . $theme->theme)) ? $theme->theme : 'default';

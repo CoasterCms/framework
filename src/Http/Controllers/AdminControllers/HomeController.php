@@ -22,7 +22,7 @@ class HomeController extends Controller
         }
         $requests_table = View::make('coaster::partials.tabs.publish_requests.table', array('show' => ['page' => true, 'status' => false, 'requested_by' => true], 'requests' => $requests))->render();
 
-        $any_requests = config('coaster::admin.publishing') && !PagePublishRequests::can_moderate([], 1)->isEmpty();
+        $any_requests = config('coaster.admin.publishing') && !PagePublishRequests::can_moderate([], 1)->isEmpty();
 
         $user_requests = PagePublishRequests::all_requests(0, ['user_id' => Auth::user()->id, 'status' => 'awaiting'], 10);
         if ($user_requests->isEmpty()) {
@@ -30,7 +30,7 @@ class HomeController extends Controller
         }
         $user_requests_table = View::make('coaster::partials.tabs.publish_requests.table', array('show' => ['page' => true, 'status' => true, 'requested_by' => false], 'requests' => $user_requests))->render();
 
-        $any_user_requests = config('coaster::admin.publishing') && !PagePublishRequests::all_requests(0, ['user_id' => Auth::user()->id], 1)->isEmpty();
+        $any_user_requests = config('coaster.admin.publishing') && !PagePublishRequests::all_requests(0, ['user_id' => Auth::user()->id], 1)->isEmpty();
 
         $logs_data = AdminLog::with(['user', 'backup'])->orderBy('id', 'desc')->paginate(10);
 
@@ -71,9 +71,9 @@ class HomeController extends Controller
         $data['canViewSettings'] = Auth::action('system');
 
         $upgrade = new \stdClass;
-        $upgrade->from = config('coaster::site.version');
+        $upgrade->from = config('coaster.site.version');
         $upgrade->to = Setting::latestTag();
-        $upgrade->required = version_compare(config('coaster::site.version'), $upgrade->to, '<');
+        $upgrade->required = version_compare(config('coaster.site.version'), $upgrade->to, '<');
         $upgrade->allowed = Auth::action('system.upgrade');
 
         $data['upgrade'] = $upgrade;

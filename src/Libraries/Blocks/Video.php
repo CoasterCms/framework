@@ -110,7 +110,7 @@ class Video extends Select
     {
         try {
             $youTube = new Client(['base_uri' => 'https://www.googleapis.com/youtube/v3/']);
-            $params =  $params + ['key' => config('coaster::key.yt_server')];
+            $params =  $params + ['key' => config('coaster.key.yt_server')];
             $response = $youTube->request('GET', $request, ['query' => $params]);
             $data = json_decode($response->getBody());
             return !empty($data) && !empty($data->items[0]) ? $data->items[0] : null;

@@ -34,7 +34,7 @@ class PageCache
     public function __construct()
     {
         $this->_keys = Cache::get(static::PAGE_CACHE_KEY) ?: [];
-        $this->_cacheFor = abs((int) config('coaster::frontend.cache'));
+        $this->_cacheFor = abs((int) config('coaster.frontend.cache'));
     }
 
     /**

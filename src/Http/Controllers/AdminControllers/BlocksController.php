@@ -16,7 +16,7 @@ class BlocksController extends Controller
     {
         // load theme global blocks
         $blocks = array();
-        $theme = Theme::find(config('coaster::frontend.theme'));
+        $theme = Theme::find(config('coaster.frontend.theme'));
         if (!empty($theme)) {
             $blocks = Theme::theme_blocks($theme->id);
         }

@@ -69,7 +69,7 @@ class AccountController extends Controller
                     if (empty($failures)) {
                         $view_data['success'] = 'We have sent an email to you with a link to change your password.';
                     } else {
-                        FormMessage::add('email', 'There was an error sending mail, please contact <a href="mailto:support@web-feet.co.uk?Subject=' . config('coaster::site.name') . ': Forgotten Password">support</a>.');
+                        FormMessage::add('email', 'There was an error sending mail, please contact <a href="mailto:support@web-feet.co.uk?Subject=' . config('coaster.site.name') . ': Forgotten Password">support</a>.');
                     }
                 }
             } else {
@@ -175,7 +175,7 @@ class AccountController extends Controller
     public function getIndex()
     {
         $account = View::make('coaster::partials.users.info', array('user' => Auth::user()));
-        $this->layoutData['content'] = View::make('coaster::pages.account', array('account' => $account, 'auto_blog_login' => (!empty(config('coaster::blog.url') && Auth::action('account.blog'))), 'setAlias' => Auth::action('account.name'), 'change_password' => Auth::action('account.password')));
+        $this->layoutData['content'] = View::make('coaster::pages.account', array('account' => $account, 'auto_blog_login' => (!empty(config('coaster.blog.url') && Auth::action('account.blog'))), 'setAlias' => Auth::action('account.name'), 'change_password' => Auth::action('account.password')));
     }
 
     public function getName()

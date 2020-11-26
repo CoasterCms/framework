@@ -25,7 +25,7 @@ class EstimoteBeacon extends BeaconAbstract
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json'
                     ],
-                    'auth' => [config('coaster::appid.estimote'), config('coaster::key.estimote')]
+                    'auth' => [config('coaster.key.estimote_id'), config('coaster.key.estimote_key')]
                 ]
             );
         }

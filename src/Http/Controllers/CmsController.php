@@ -96,7 +96,7 @@ class CmsController extends Controller
 
             // check for form submissions
             if (!empty($_POST)) {
-                $formData = $isExternal ? Request::input(config('coaster::frontend.external_form_input')) : Request::all();
+                $formData = $isExternal ? Request::input(config('coaster.frontend.external_form_input')) : Request::all();
                 if (!empty($formData['block_id']) && empty($formData['coaster_check'])) { // honeypot option
                     if (!($block = Block::find($formData['block_id']))) {
                         throw new Exception('no block handler for this form data', 500);
@@ -148,17 +148,17 @@ class CmsController extends Controller
             $domDocument = new DOMDocument;
             $domDocument->loadHTML($response->getContent());
 
-            $domDocument->addMetaTag('generator', 'Coaster CMS ' . config('coaster::site.version'));
+            $domDocument->addMetaTag('generator', 'Coaster CMS ' . config('coaster.site.version'));
             $domDocument->updateTokens(); // fpc fix for tokens
 
-            if (config('coaster::frontend.strong_tags') == 1) {
+            if (config('coaster.frontend.strong_tags') == 1) {
                 $keywords = explode(", ", str_replace(" and ", ", ", PageBuilder::block('meta_keywords')));
                 $domDocument->addStrongTags($keywords);
             }
 
             // save page content
             if ($isExternal) {
-                $domDocument->appendInputFieldNames(config('coaster::frontend.external_form_input'));
+                $domDocument->appendInputFieldNames(config('coaster.frontend.external_form_input'));
                 $response->setContent($domDocument->saveBodyHTML());
             } else {
                 $response->setContent($domDocument->saveHTML($domDocument));

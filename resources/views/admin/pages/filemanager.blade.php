@@ -2,4 +2,4 @@
 
 <br/>
 
-<iframe src="{!! URL::to(config('coaster::admin.public').'/filemanager/dialog.php') !!}" class="filemanager"></iframe>
+<iframe src="{!! URL::to(config('coaster.admin.public').'/filemanager/dialog.php') !!}" class="filemanager"></iframe>

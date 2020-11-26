@@ -19,7 +19,7 @@ class Language extends Eloquent
     {
         $language = Session::get('language');
         if (empty($language)) {
-            $language = config('coaster::frontend.language');
+            $language = config('coaster.frontend.language');
             self::set($language);
         }
         return $language;

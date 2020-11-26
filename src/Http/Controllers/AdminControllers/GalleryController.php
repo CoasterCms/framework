@@ -18,7 +18,7 @@ class GalleryController extends Controller
     {
         $page = Page::find($pageId);
         if (!empty($page)) {
-            $block_cats = ThemeTemplate::templateBlocks(config('coaster::frontend.theme'), $page->template);
+            $block_cats = ThemeTemplate::templateBlocks(config('coaster.frontend.theme'), $page->template);
             foreach ($block_cats as $block_cat) {
                 foreach ($block_cat as $block) {
                     if ($block->type == 'gallery') {

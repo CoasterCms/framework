@@ -28,7 +28,7 @@ class WordPress extends Cms
     public function run($keyword, $keywordAdditionalWeight = 0)
     {
         if ($this->_databaseConnection) {
-            $prefix = config('coaster::blog.prefix');
+            $prefix = config('coaster.blog.prefix');
             $blogPosts = $this->_databaseConnection->query("
                 SELECT wp.*, weights.search_weight FROM wp_posts wp RIGHT JOIN
                     (
@@ -52,8 +52,8 @@ class WordPress extends Cms
                         $postData->$field = $value;
                     }
                     $postData->content = $blogPost['post_content'];
-                    $postData->fullName = ucwords(str_replace('/', ' ', config('coaster::blog.url'))) . $defaultSeparator->separator . $blogPost['post_title'];
-                    $postData->fullUrl = config('coaster::blog.url') . $blogPost['post_name'];
+                    $postData->fullName = ucwords(str_replace('/', ' ', config('coaster.blog.url'))) . $defaultSeparator->separator . $blogPost['post_title'];
+                    $postData->fullUrl = config('coaster.blog.url') . $blogPost['post_name'];
                     $this->_addWeight($postData, $blogPost['search_weight'] + $keywordAdditionalWeight);
                 }
             }

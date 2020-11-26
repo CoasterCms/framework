@@ -123,7 +123,7 @@ class UserRole extends Eloquent
 
     private function _allowed_page_actions($page_id)
     {
-        if (!config('coaster::admin.advanced_permissions')) {
+        if (!config('coaster.admin.advanced_permissions')) {
             return [];
         }
 

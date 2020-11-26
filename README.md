@@ -15,11 +15,10 @@ You can also use this as a stand-alone library to add content management functio
 The steps are are as follows:
 
 1. Add "web-feet/coasterframework": "~8.0" to the composer.json file and run composer update
-2. Go to you config/app.php file
-3. Add the service provider CoasterCms\CmsServiceProvider::class (ideally before app providers)
-4. Add the service provider CoasterCms\Providers\CoasterRoutesProvider::class (near the end as it registers a catch-all route)
+2. Go to your config/app.php file
+3. Add the service provider CoasterCms\Providers\CoasterRoutesProvider::class (near the end as it registers a catch-all route)
 5. Go to the root directory of your project
 6. Run the script <code>php artisan coaster:update-assets</code>
-7. Manually copy/merge the files in config/publish/ to your root config directory or run script <code>php artisan vendor:publish --force --tag coaster.config</code>
-8. Go to a web browser and follow the install script that should have appeared (on [your url]/install)
+7. Run the script <code>php artisan vendor:publish --tag coaster.config</code>
+8. Go to a web browser and follow the install script that should have appeared
 9. Upload or create a theme

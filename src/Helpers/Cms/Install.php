@@ -51,7 +51,7 @@ class Install
 
     protected static function _getFilePath()
     {
-        return storage_path(config('coaster::site.storage_path')) . '/install.txt';
+        return storage_path(config('coaster.site.storage_path')) . '/install.txt';
     }
 
 }

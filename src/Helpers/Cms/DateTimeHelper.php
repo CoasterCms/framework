@@ -11,7 +11,7 @@ class DateTimeHelper
         if (!is_a($dateTime, Carbon::class)) {
             $dateTime = new Carbon($dateTime);
         }
-        return $dateTime->format(config('coaster::date.format.'.$format));
+        return $dateTime->format(config('coaster.date.format.'.$format));
     }
 
     public static function displaySeconds($seconds) {
@@ -41,7 +41,7 @@ class DateTimeHelper
     public static function jQueryToMysql($jqueryDt)
     {
         if ($jqueryDt) {
-            if ($date = Carbon::createFromFormat(config('coaster::date.format.jq_php'), $jqueryDt)) {
+            if ($date = Carbon::createFromFormat(config('coaster.date.format.jq_php'), $jqueryDt)) {
                 return $date->format("Y-m-d H:i:s");
             }
         }
@@ -51,7 +51,7 @@ class DateTimeHelper
     public static function mysqlToJQuery($mysqlDt)
     {
         if ($mysqlDt && strtotime($mysqlDt)) {
-            return (new Carbon($mysqlDt))->format(config('coaster::date.format.jq_php'));
+            return (new Carbon($mysqlDt))->format(config('coaster.date.format.jq_php'));
         }
         return '';
     }

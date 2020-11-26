@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <title>{!! $site_name." | ".$title !!}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Coaster CMS {{ config('coaster::site.version') }}">
+    <meta name="generator" content="Coaster CMS {{ config('coaster.site.version') }}">
     <meta name="robots" content="noindex">
     <meta name="_token" content="{{ csrf_token() }}">
 
@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="logo" href="{{ route('coaster.admin') }}">
-                <img src="{{ URL::to(config('coaster::admin.public')) }}/app/img/logo.png" alt="Coaster CMS"/>
+                <img src="{{ URL::to(config('coaster.admin.public')) }}/app/img/logo.png" alt="Coaster CMS"/>
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -79,12 +79,12 @@
 
 {!! $modals !!}
 
-<script src="{{ URL::to(config('coaster::admin.public')).'/app/js/router.js' }}"></script>
+<script src="{{ URL::to(config('coaster.admin.public')).'/app/js/router.js' }}"></script>
 <script type="text/javascript">
-    var dateFormat = '{{ config('coaster::date.format.jq_date') }}';
-    var timeFormat = '{{ config('coaster::date.format.jq_time') }}';
-    var ytBrowserKey = '{{ config('coaster::key.yt_browser') }}';
-    var adminPublicUrl = '{{ URL::to(config('coaster::admin.public')).'/' }}';
+    var dateFormat = '{{ config('coaster.date.format.jq_date') }}';
+    var timeFormat = '{{ config('coaster.date.format.jq_time') }}';
+    var ytBrowserKey = '{{ config('coaster.key.yt_browser') }}';
+    var adminPublicUrl = '{{ URL::to(config('coaster.admin.public')).'/' }}';
     router.addRoutes({!! $coaster_routes !!});
     router.setBase('{{ URL::to('/') }}');
 </script>

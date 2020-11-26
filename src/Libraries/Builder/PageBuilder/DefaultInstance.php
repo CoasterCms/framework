@@ -674,8 +674,8 @@ class DefaultInstance
 
             // get languages
             $loadForLanguages = [!empty($options['language']) ? $options['language'] : Language::current()];
-            if (config('coaster::frontend.language_fallback') == 1 && !in_array(config('coaster::frontend.language'), $loadForLanguages)) {
-                $loadForLanguages[] = config('coaster::frontend.language');
+            if (config('coaster.frontend.language_fallback') == 1 && !in_array(config('coaster.frontend.language'), $loadForLanguages)) {
+                $loadForLanguages[] = config('coaster.frontend.language');
             }
 
             // run through languages until block data found
@@ -765,7 +765,7 @@ class DefaultInstance
      */
     public function blogPosts($getPosts = 3, $where = 'post_type = "post" AND post_status = "publish"')
     {
-        $prefix = config('coaster::blog.prefix');
+        $prefix = config('coaster.blog.prefix');
         $where = $where ? 'WHERE ' . $where : '';
         $query = "SELECT * FROM {$prefix}posts {$where} ORDER BY post_date DESC LIMIT {$getPosts}";
         try {
@@ -831,7 +831,7 @@ class DefaultInstance
             'templates' => [],
             'groups' => [],
             'fromPageIds' => [],
-            'canonicals' => config('coaster::frontend.canonicals')
+            'canonicals' => config('coaster.frontend.canonicals')
         ];
         $options = array_merge($defaultOptions, $options);
 

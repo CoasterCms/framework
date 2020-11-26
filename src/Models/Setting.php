@@ -14,24 +14,14 @@ Class Setting extends Eloquent
 
     private static $_blogConn;
 
-    public static function loadAll($configFolder, $namespace, $db = true)
+    public static function loadAll($namespace)
     {
-        $files = File::files($configFolder);
-
-        foreach ($files as $file) {
-            $config = File::getRequire($file);
-            Config::set($namespace . '::' . pathinfo($file, PATHINFO_FILENAME), $config);
-        }
-
-        if ($db) {
-            $settings = self::all();
-            foreach ($settings as $setting) {
-                if ($setting->value != '' || strpos($setting->name, 'key') !== 0) {
-                    Config::set($namespace . '::' . $setting->name, $setting->value);
-                }
+        $settings = self::all();
+        foreach ($settings as $setting) {
+            if ($setting->value != '' || strpos($setting->name, 'key') !== 0) {
+                Config::set($namespace . '.' . $setting->name, $setting->value);
             }
         }
-
     }
 
     /**
@@ -59,8 +49,8 @@ Class Setting extends Eloquent
     public static function blogConnection()
     {
         if (!isset(self::$_blogConn)) {
-            if (config('coaster::blog.connection')) {
-                self::$_blogConn = new \PDO(config('coaster::blog.connection'), config('coaster::blog.username'), config('coaster::blog.password'));
+            if (config('coaster.blog.connection')) {
+                self::$_blogConn = new \PDO(config('coaster.blog.connection'), config('coaster.blog.username'), config('coaster.blog.password'));
             } else {
                 self::$_blogConn = DB::connection()->getPdo();
             }

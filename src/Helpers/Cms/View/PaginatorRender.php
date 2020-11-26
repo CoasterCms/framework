@@ -12,7 +12,7 @@ class PaginatorRender
     public static function run(LengthAwarePaginator $paginator, $bootstrapVersion = 0)
     {
         if (!$bootstrapVersion) {
-            $bootstrapVersion = config('coaster::frontend.bootstrap_version');
+            $bootstrapVersion = config('coaster.frontend.bootstrap_version');
         }
         return self::_render($paginator, $bootstrapVersion);
     }
@@ -23,7 +23,7 @@ class PaginatorRender
      */
     public static function admin(LengthAwarePaginator $paginator)
     {
-        return self::_render($paginator, config('coaster::admin.bootstrap_version'));
+        return self::_render($paginator, config('coaster.admin.bootstrap_version'));
     }
 
     /**

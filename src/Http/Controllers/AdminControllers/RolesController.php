@@ -34,10 +34,10 @@ class RolesController extends Controller
         }
 
         // alter actions shown based on site settings
-        if (!config('coaster::admin.publishing') && isset($publishing_action_id)) {
+        if (!config('coaster.admin.publishing') && isset($publishing_action_id)) {
             unset($actions[2][$publishing_action_id]);
         }
-        if (config('coaster::admin.advanced_permissions')) {
+        if (config('coaster.admin.advanced_permissions')) {
             $action = new \stdClass;
             $action->id = -1;
             $action->name = 'Advanced page based permissions';
@@ -194,14 +194,14 @@ class RolesController extends Controller
 
     public function postPages($role_id)
     {
-        if (config('coaster::admin.advanced_permissions')) {
+        if (config('coaster.admin.advanced_permissions')) {
 
             $page_actions = AdminAction::where('controller_id', '=', 2)->where('inherit', '=', 0)->where('edit_based', '=', 0)->get();
             $actionIds = [];
             foreach ($page_actions as $action) {
                 $actionIds[$action->action] = $action->id;
             }
-            if (!config('coaster::admin.publishing')) {
+            if (!config('coaster.admin.publishing')) {
                 unset($actionIds['version-publish']);
             }
 
@@ -306,7 +306,7 @@ class RolesController extends Controller
                 }
             }
 
-            if (!config('coaster::admin.publishing')) {
+            if (!config('coaster.admin.publishing')) {
                 unset($edit_actions['pages.version-publish']);
             }
 

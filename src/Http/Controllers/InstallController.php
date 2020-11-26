@@ -30,7 +30,7 @@ class InstallController extends Controller
 
         $this->layout = 'coaster::template.main';
         $this->layoutData = [
-            'site_name' => config('coaster::site.name'),
+            'site_name' => config('coaster.site.name'),
             'title' => '',
             'system_menu' => '',
             'sections_menu' => '',

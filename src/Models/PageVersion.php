@@ -34,7 +34,7 @@ class PageVersion extends Eloquent
 
     public static function can_publish($pageId)
     {
-        if (config('coaster::admin.publishing')) {
+        if (config('coaster.admin.publishing')) {
             return Auth::action('pages.version-publish', ['page_id' => $pageId]);
         } else {
             return Auth::action('pages.edit', ['page_id' => $pageId]);

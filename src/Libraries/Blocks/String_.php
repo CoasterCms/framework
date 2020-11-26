@@ -24,7 +24,7 @@ class String_ extends AbstractBlock
                 $content
             );
             $content = str_replace('%page_name%', PageBuilder::pageName(), $content);
-            $content = str_replace('%site_name%', config('coaster::site.name'), $content);
+            $content = str_replace('%site_name%', config('coaster.site.name'), $content);
         }
         if (!empty($options['meta'])) {
             $content = trim(str_replace(PHP_EOL, ' ', $content));

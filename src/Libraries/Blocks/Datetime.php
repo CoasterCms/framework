@@ -15,7 +15,7 @@ class Datetime extends AbstractBlock
     {
         if (!empty($options['format'])) {
             if (strpos($options['format'], 'coaster.') === 0) {
-                $options['format'] = config('coaster:date.format'.substr($options['format'], 8));
+                $options['format'] = config('coaster.date.format'.substr($options['format'], 8));
             }
             $content = (new Carbon($content))->format($options['format']);
         }

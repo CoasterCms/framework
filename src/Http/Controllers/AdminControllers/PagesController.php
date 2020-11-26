@@ -37,7 +37,7 @@ class PagesController extends AdminController
 
     public function getAdd($parentPageId = 0, $groupId = 0)
     {
-        $publishingOn = config('coaster::admin.publishing') > 0;
+        $publishingOn = config('coaster.admin.publishing') > 0;
         $cabPublish = ($publishingOn && Auth::action('pages.version-publish', ['page_id' => $parentPageId])) || (!$publishingOn && Auth::action('pages.edit', ['page_id' => $parentPageId]));
 
         // set page data
@@ -103,7 +103,7 @@ class PagesController extends AdminController
         }
         PageVersionSchedule::checkPageVersionIds();
 
-        $publishingOn = config('coaster::admin.publishing') > 0;
+        $publishingOn = config('coaster.admin.publishing') > 0;
         $auth = [
             'can_publish' => ($publishingOn && Auth::action('pages.version-publish', ['page_id' => $pageId])) || (!$publishingOn && Auth::action('pages.edit', ['page_id' => $pageId])),
             'can_duplicate' => $page->canDuplicate()
@@ -146,7 +146,7 @@ class PagesController extends AdminController
 
         // load blocks content
         if ($page->link == 0) {
-            $blocks = ThemeTemplate::templateBlocks(config('coaster::frontend.theme'), $page->template);
+            $blocks = ThemeTemplate::templateBlocks(config('coaster.frontend.theme'), $page->template);
             $blocks_content = PageBlock::preloadPage($pageId, $versionData['editing']);
             list($tab_headers, $tab_contents) = Block::getTabs($blocks, $blocks_content, $page->id, $versionId);
         } else {
@@ -207,7 +207,7 @@ class PagesController extends AdminController
         }
 
         $publish = false;
-        $publishing = (bool) config('coaster::admin.publishing');
+        $publishing = (bool) config('coaster.admin.publishing');
         $canPublish = Auth::action('pages.version-publish', ['page_id' => $pageId]);
         if ($publishing && $existingPage->link == 0) {
             // check if publish
@@ -298,7 +298,7 @@ class PagesController extends AdminController
 
     public function postVersionSchedule($pageId)
     {
-        $publishingOn = (config('coaster::admin.publishing') > 0) ? true : false;
+        $publishingOn = (config('coaster.admin.publishing') > 0) ? true : false;
         if (!$publishingOn || !Auth::action('pages.version-publish', ['page_id' => $pageId])) {
             return 0;
         }
@@ -431,7 +431,7 @@ class PagesController extends AdminController
         $pages = array();
         $all_pages = Page::all();
         foreach ($all_pages as $page) {
-            if (config('coaster::admin.advanced_permissions') && !Auth::action('pages', ['page_id' => $page->id])) {
+            if (config('coaster.admin.advanced_permissions') && !Auth::action('pages', ['page_id' => $page->id])) {
                 continue;
             }
             $pages[] = $page->id;

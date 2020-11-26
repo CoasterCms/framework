@@ -21,7 +21,7 @@ class AddEstimoteSupport extends Migration
         DB::table('settings')->insert([
             [
                 'label' => 'Estimote APP ID',
-                'name' => 'appid.estimote',
+                'name' => 'key.estimote_id',
                 'value' => '',
                 'editable' => 1,
                 'hidden' => 0,
@@ -30,7 +30,7 @@ class AddEstimoteSupport extends Migration
             ],
             [
                 'label' => 'Estimote API Key',
-                'name' => 'key.estimote',
+                'name' => 'key.estimote_key',
                 'value' => '',
                 'editable' => 1,
                 'hidden' => 0,
@@ -51,7 +51,7 @@ class AddEstimoteSupport extends Migration
         {
             $table->dropColumn('type');
         });
-        DB::table('settings')->whereIn('name', ['appid.estimote', 'key.estimote'])->delete();
+        DB::table('settings')->whereIn('name', ['key.estimote_id', 'key.estimote_key'])->delete();
     }
 
 }

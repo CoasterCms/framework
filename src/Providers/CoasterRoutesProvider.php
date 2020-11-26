@@ -31,7 +31,7 @@ class CoasterRoutesProvider extends ServiceProvider
         $routeName = 'coaster.';
         $routesDir = realpath(__DIR__ . '/../routes/web');
         $adminRouteName = $routeName . 'admin.';
-        $adminUrl = config('coaster::admin.url') . '/';
+        $adminUrl = config('coaster.admin.url') . '/';
 
         if (!Install::isComplete()) {
             Route::middleware(['web'])
@@ -40,13 +40,12 @@ class CoasterRoutesProvider extends ServiceProvider
                 ->group($routesDir . '/install.php');
         }
 
-        if (\App::runningInConsole() || \Request::segment(1) == rtrim($adminUrl, '/') || config('coaster::admin.always_load_routes')) {
-            Route::middleware(['web', 'coaster.admin'])
-                ->prefix($adminUrl)
-                ->as($adminRouteName)
-                ->namespace($namespace . '\AdminControllers')
-                ->group($routesDir . '/admin-auth.php');
-        }
+        Route::middleware(['web', 'coaster.admin'])
+            ->prefix($adminUrl)
+            ->as($adminRouteName)
+            ->namespace($namespace . '\AdminControllers')
+            ->group($routesDir . '/admin-auth.php');
+        
 
         Route::middleware(['web', 'coaster.guest'])
             ->prefix($adminUrl)

@@ -33,7 +33,7 @@ class Page extends Eloquent
      */
     public function pageLang()
     {
-        return $this->pageCurrentLang ?: (config('coaster::frontend.language_fallback') ? $this->pageDefaultLang : null);
+        return $this->pageCurrentLang ?: (config('coaster.frontend.language_fallback') ? $this->pageDefaultLang : null);
     }
 
     /**
@@ -49,7 +49,7 @@ class Page extends Eloquent
      */
     public function pageDefaultLang()
     {
-        return $this->hasOne('CoasterCms\Models\PageLang')->where('language_id', '=', config('coaster::frontend.language'));
+        return $this->hasOne('CoasterCms\Models\PageLang')->where('language_id', '=', config('coaster.frontend.language'));
     }
 
     public function groups()
@@ -143,7 +143,7 @@ class Page extends Eloquent
 
     public static function at_limit($for_group = false)
     {
-        $limit = ($for_group && config('coaster::site.groups') !== '') ? config('coaster::site.groups') : config('coaster::site.pages');
+        $limit = ($for_group && config('coaster.site.groups') !== '') ? config('coaster.site.groups') : config('coaster.site.pages');
         return $limit === '0' ? false : (self::get_total($for_group) >= $limit);
     }
 
@@ -241,7 +241,7 @@ class Page extends Eloquent
         $max_link = $options['links'] ? 1 : 0;
         $min_parent = $options['group_pages'] ? -1 : 0;
         foreach ($pages as $page) {
-            if (config('coaster::admin.advanced_permissions') && !Auth::action('pages', ['page_id' => $page->id])) {
+            if (config('coaster.admin.advanced_permissions') && !Auth::action('pages', ['page_id' => $page->id])) {
                 continue;
             }
             if ($page->link <= $max_link && $page->parent >= $min_parent) {
@@ -276,7 +276,7 @@ class Page extends Eloquent
             $pages_li = '';
             foreach ($listPages as $page) {
 
-                if (config('coaster::admin.advanced_permissions') && !Auth::action('pages', ['page_id' => $page->id])) {
+                if (config('coaster.admin.advanced_permissions') && !Auth::action('pages', ['page_id' => $page->id])) {
                     continue;
                 }
 
@@ -322,7 +322,7 @@ class Page extends Eloquent
                     }
                     $li_info->group = '';
                 }
-                if (trim($li_info->preview_link, '/') != '' && trim($li_info->preview_link, '/') == trim(config('coaster::blog.url'), '/')) {
+                if (trim($li_info->preview_link, '/') != '' && trim($li_info->preview_link, '/') == trim(config('coaster.blog.url'), '/')) {
                     $li_info->blog = route('coaster.admin.system.wp-login');
                 } else {
                     $li_info->blog = '';
@@ -487,7 +487,7 @@ class Page extends Eloquent
     {
         $contents = '';
 
-        $publishingOn = config('coaster::admin.publishing') > 0;
+        $publishingOn = config('coaster.admin.publishing') > 0;
         $canPublish = ($publishingOn && Auth::action('pages.version-publish', ['page_id' => $this->id])) || !$publishingOn;
 
         // page parent (only updated for new pages)
@@ -524,14 +524,14 @@ class Page extends Eloquent
 
         // groups
         $groups = PageGroup::all();
-        if (!$groups->isEmpty() || config('coaster::site.groups') !== '') {
+        if (!$groups->isEmpty() || config('coaster.site.groups') !== '') {
             $contents .= View::make('coaster::partials.tabs.page_info.groups', ['page' => $this, 'groups' => $groups])->render();
         }
 
         //template
-        $theme = Theme::find(config('coaster::frontend.theme'));
+        $theme = Theme::find(config('coaster.frontend.theme'));
         if (empty($this->template)) {
-            $this->template = config('coaster::admin.default_template');
+            $this->template = config('coaster.admin.default_template');
             $parentPage = static::find($this->parent);
             if ($parentPage && $parentTemplate = $theme->templateById($parentPage->template)) {
                 $this->template = $parentTemplate->child_template ?: $this->template;
@@ -730,8 +730,8 @@ class Page extends Eloquent
          * Check if page info can be updated (based on publishing auth action, or allowed if new page)
          */
         $authPageIdCheck = $this->id ?: ($this->parent > 0 ? $this->parent : 0);
-        $canPublish = (config('coaster::admin.publishing') > 0 && Auth::action('pages.version-publish', ['page_id' => $authPageIdCheck])) || (config('coaster::admin.publishing') == 0 && Auth::action('pages.edit', ['page_id' => $authPageIdCheck]));
-        $canPublish = $canPublish || (isset($groupContainer) && ((config('coaster::admin.publishing') > 0 && $groupContainer->canPublishItems()) || (config('coaster::admin.publishing') == 0 && $groupContainer->canEditItems())));
+        $canPublish = (config('coaster.admin.publishing') > 0 && Auth::action('pages.version-publish', ['page_id' => $authPageIdCheck])) || (config('coaster.admin.publishing') == 0 && Auth::action('pages.edit', ['page_id' => $authPageIdCheck]));
+        $canPublish = $canPublish || (isset($groupContainer) && ((config('coaster.admin.publishing') > 0 && $groupContainer->canPublishItems()) || (config('coaster.admin.publishing') == 0 && $groupContainer->canEditItems())));
         $willPublish = !$this->id || $canPublish;
 
         /*
@@ -765,7 +765,7 @@ class Page extends Eloquent
         /*
          * Update title block to the page name is new page
          */
-        if ($newPage && $titleBlock = Block::where('name', '=', config('coaster::admin.title_block'))->first()) {
+        if ($newPage && $titleBlock = Block::where('name', '=', config('coaster.admin.title_block'))->first()) {
             $titleBlock->setVersionId($pageVersion->version_id)->setPageId($this->id)->getTypeObject()->save($pageLang->name);
             PageSearchData::updateText(strip_tags($pageLang->name), 0, $this->id);
         }

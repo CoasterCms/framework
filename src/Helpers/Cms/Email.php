@@ -15,8 +15,8 @@ class Email
         // get email details to send to
         $emailDetails = [
             'subject' => $subject,
-            'to' => $to ?: config('coaster::site.email'),
-            'from' => $from ?: config('coaster::site.email'),
+            'to' => $to ?: config('coaster.site.email'),
+            'from' => $from ?: config('coaster.site.email'),
             'userEmail' => null
         ];
 

@@ -23,7 +23,7 @@
         <div class="input-group">
             {!! Form::text($name.'[source]', $content->file, ['id' => $source_field_id, 'class' => 'img_src form-control']) !!}
             <span class="input-group-btn">
-                <a href="{!! URL::to(config('coaster::admin.public').'/filemanager/dialog.php?type=1&field_id='.$source_field_id) !!}"
+                <a href="{!! URL::to(config('coaster.admin.public').'/filemanager/dialog.php?type=1&field_id='.$source_field_id) !!}"
                    class="btn btn-default iframe-btn">Select Image</a>
             </span>
         </div>

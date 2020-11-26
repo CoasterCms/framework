@@ -14,7 +14,7 @@
                     <a href="{{ route('coaster.admin.account') }}" class="btn btn-default" style="margin-top:30px;">
                         <i class="fa fa-lock"></i>  &nbsp; Account settings
                     </a>
-                    <a href="{{ config('coaster::admin.help_link') }}" class="btn btn-default" style="margin-top:30px;">
+                    <a href="{{ config('coaster.admin.help_link') }}" class="btn btn-default" style="margin-top:30px;">
                         <i class="fa fa-life-ring"></i>  &nbsp; Help Docs
                     </a>
                 </div>

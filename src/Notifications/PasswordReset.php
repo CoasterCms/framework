@@ -50,8 +50,8 @@ class PasswordReset extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(config('coaster::site.name') . ': Forgotten Password')
-            ->from(config('coaster::site.email'))
+            ->subject(config('coaster.site.name') . ': Forgotten Password')
+            ->from(config('coaster.site.email'))
             ->line('You are receiving this email because we received a password reset request for your account.')
             ->action('Reset Password', url(route($this->_routeName, $this->_user->tmp_code)))
             ->line('If you did not request a password reset, no further action is required.');

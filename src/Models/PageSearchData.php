@@ -60,7 +60,7 @@ class PageSearchData extends Eloquent
             // load search objects
             $searchObjects = [
                 new Cms($onlyLive),
-                new WordPress($onlyLive, config('coaster::blog.url') ? Setting::blogConnection() : false)
+                new WordPress($onlyLive, config('coaster.blog.url') ? Setting::blogConnection() : false)
             ];
             event(new Search($searchObjects, $onlyLive));
 

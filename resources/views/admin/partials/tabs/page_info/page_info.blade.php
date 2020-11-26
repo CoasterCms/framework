@@ -41,7 +41,7 @@
             @if (!$page->id || $page->link == 1)
                 <span class="input-group-addon link_show">or</span>
                 <span class="input-group-btn link_show">
-                    <a href="{!! URL::to(config('coaster::admin.public').'/filemanager/dialog.php?type=2&field_id=page_info_url') !!}"
+                    <a href="{!! URL::to(config('coaster.admin.public').'/filemanager/dialog.php?type=2&field_id=page_info_url') !!}"
                        class="btn btn-default iframe-btn">Select Doc</a>
                 </span>
             @endif

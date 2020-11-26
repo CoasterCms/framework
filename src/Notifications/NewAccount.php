@@ -57,8 +57,8 @@ class NewAccount extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(config('coaster::site.name') . ': New Account Details')
-            ->from(config('coaster::site.email'))
+            ->subject(config('coaster.site.name') . ': New Account Details')
+            ->from(config('coaster.site.email'))
             ->line('You have been created a new account on '.url()->to('/').' please see details below:')
             ->line('Username: ' . $this->_user->email)
             ->line('Password: ' . $this->_password)

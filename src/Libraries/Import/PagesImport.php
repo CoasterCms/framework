@@ -58,7 +58,7 @@ class PagesImport extends AbstractImport
             ],
             'Page Language Id' => [
                 'mapTo' => ['PageLang', 'language_id'],
-                'default' => config('coaster::frontend.language')
+                'default' => config('coaster.frontend.language')
             ],
             'Page Template' => [
                 'mapTo' => ['Page', 'template'],
@@ -166,7 +166,7 @@ class PagesImport extends AbstractImport
     protected function _mapTemplate($importFieldData)
     {
         $templateName = trim($importFieldData);
-        return array_key_exists($templateName, $this->_templateIds) ? $this->_templateIds[$templateName] : config('coaster::admin.default_template');
+        return array_key_exists($templateName, $this->_templateIds) ? $this->_templateIds[$templateName] : config('coaster.admin.default_template');
     }
 
     /**

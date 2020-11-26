@@ -61,7 +61,7 @@ Class Theme extends Eloquent
     public static function get_template_list($includeTemplate = 0)
     {
         $templates = [];
-        if ($theme = static::find(config('coaster::frontend.theme'))) {
+        if ($theme = static::find(config('coaster.frontend.theme'))) {
             foreach ($theme->templates()->where('theme_templates.hidden', '=', 0)->get() as $template) {
                 $templates[$template->id] = !empty($template->label) ? $template->label : $template->template;
             }
@@ -138,7 +138,7 @@ Class Theme extends Eloquent
                 if (empty($defaultTemplate)) {
                     $defaultTemplateId = $defaultTemplate->value;
                 } else {
-                    $defaultTemplateId = config('coaster::admin.default_template');
+                    $defaultTemplateId = config('coaster.admin.default_template');
                 }
 
                 // update default template id if not a theme template
@@ -363,7 +363,7 @@ Class Theme extends Eloquent
     {
         $theme = self::where('theme', '=', $themeName)->first();
         if (!empty($theme)) {
-            if ($theme->id == config('coaster::frontend.theme')) {
+            if ($theme->id == config('coaster.frontend.theme')) {
                 return 0;
             }
             ThemeTemplateBlock::whereIn('theme_template_id', ThemeTemplate::where('theme_id', '=', $theme->id)->get()->pluck('id')->toArray())->delete();

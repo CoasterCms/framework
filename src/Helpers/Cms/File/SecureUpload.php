@@ -8,7 +8,7 @@ class SecureUpload
      */
     public static function secureFolders()
     {
-        return static::_processFolders(config('coaster::site.secure_folders'));
+        return static::_processFolders(config('coaster.site.secure_folders'));
     }
 
     /**

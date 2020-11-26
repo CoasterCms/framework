@@ -117,7 +117,7 @@ class MenuBuilder
 
         $this->options = array_merge([
             'view' => 'default',
-            'canonicals' => config('coaster::frontend.canonicals')
+            'canonicals' => config('coaster.frontend.canonicals')
         ], $options);
     }
 

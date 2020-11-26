@@ -124,17 +124,17 @@ class SystemController extends Controller
         }
 
         $upgrade = new \stdClass;
-        $upgrade->from = config('coaster::site.version');
+        $upgrade->from = config('coaster.site.version');
         $upgrade->to = Setting::latestTag();
-        $upgrade->required = version_compare(config('coaster::site.version'), Setting::latestTag(), '<');
+        $upgrade->required = version_compare(config('coaster.site.version'), Setting::latestTag(), '<');
 
         $this->layoutData['content'] = View::make('coaster::pages.system', array('database_structure' => $database_structure, 'last_indexed_search' => $last_indexed_search, 'site_details' => $settings, 'can_index_search' => Auth::action('system.search'), 'can_validate' => Auth::action('system.validate-db'), 'can_upgrade' => Auth::action('system.upgrade'), 'upgrade' => $upgrade));
     }
 
     public function getWpLogin()
     {
-        $blog_login_url = URL::to('/' . trim(config('coaster::blog.url'), '/') . '/wp-login.php');
-        $blog_admin_url = URL::to('/' . trim(config('coaster::blog.url'), '/') . '/wp-admin/');
+        $blog_login_url = URL::to('/' . trim(config('coaster.blog.url'), '/') . '/wp-login.php');
+        $blog_admin_url = URL::to('/' . trim(config('coaster.blog.url'), '/') . '/wp-admin/');
 
         $data_to_post = array(
             'rememberme' => 'forever',
@@ -204,13 +204,13 @@ class SystemController extends Controller
             $message = 'Composer is required to run the upgrade and must be executable from the sites root directory.<br />
             The process can take a minute or so to complete.';
 
-        } elseif (version_compare(config('coaster::site.version'), Setting::latestTag(), '<') && Setting::latestTag() != "not-found") {
+        } elseif (version_compare(config('coaster.site.version'), Setting::latestTag(), '<') && Setting::latestTag() != "not-found") {
 
             if (!getenv('HOME') && !getenv('COMPOSER_HOME')) {
                 putenv("COMPOSER_HOME=".exec('pwd')."/.composer");
             }
 
-            $coasterStorage = storage_path(config('coaster::site.storage_path'));
+            $coasterStorage = storage_path(config('coaster.site.storage_path'));
             $logFile = $coasterStorage . '/upgrade.log';
             if (!file_exists($logFile) && is_writable($coasterStorage)) {
                 file_put_contents($logFile, '');
@@ -231,7 +231,7 @@ class SystemController extends Controller
             }
 
         } else {
-            $message = 'Already at the latest version '.config('coaster::site.version');
+            $message = 'Already at the latest version '.config('coaster.site.version');
         }
 
         $this->layoutData['content'] = View::make('coaster::pages.system.upgrade', ['message' => $message, 'error' => $error, 'run' => $run]);
@@ -241,7 +241,7 @@ class SystemController extends Controller
     public function postKeys($key = null)
     {
         if (strpos($key, 'browser') !== false) {
-            return config('coaster::key.' . $key);
+            return config('coaster.key.' . $key);
         } else {
             return 0;
         }

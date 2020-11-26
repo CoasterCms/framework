@@ -20,7 +20,7 @@ class KontaktBeacon extends BeaconAbstract
                     'headers' => [
                         'Accept' => 'application/vnd.com.kontakt+json;version=8',
                         'Content-Type' => 'application/x-www-form-urlencoded',
-                        'Api-Key' => config('coaster::key.kontakt'),
+                        'Api-Key' => config('coaster.key.kontakt'),
                         'User-Agent' => 'Coaster CMS'
                     ]
                 ]

@@ -1,60 +1,35 @@
 <?php namespace CoasterCms\Auth;
 
 use Illuminate\Auth\EloquentUserProvider;
-use Illuminate\Contracts\Auth\Authenticatable;
 
 class CoasterUserProvider extends EloquentUserProvider
 {
 
     /**
-     * @param mixed $identifier
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     * Add active flag check to authentication provider
+     *
+     * @param  \Illuminate\Database\Eloquent\Model|null  $model
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function retrieveByID($identifier)
+    public function newModelQuery($model = null)
     {
-        return $this->createModel()->newQuery()->where('id', '=', $identifier)->where('active', '=', 1)->first();
+        return parent::newModelQuery($model)->where('active', '=', 1);
     }
 
     /**
-     * @param mixed $identifier
-     * @param string $token
-     * @return \Illuminate\Database\Eloquent\Model|null|static
-     */
-    public function retrieveByToken($identifier, $token)
-    {
-        $model = $this->createModel();
-
-        return $model->newQuery()
-            ->where($model->getKeyName(), $identifier)
-            ->where($model->getRememberTokenName(), $token)
-            ->where('active', '=', 1)
-            ->first();
-    }
-
-    /**
-     * @param Authenticatable $user
-     * @param string $token
-     */
-    public function updateRememberToken(Authenticatable $user, $token)
-    {
-        $user->setRememberToken($token);
-        $user->save();
-    }
-
-    /**
+     * Fallback code to rename username input to email
+     *
      * @param array $credentials
      * @return \Illuminate\Database\Eloquent\Model|null|static
      * @throws \ErrorException
      */
     public function retrieveByCredentials(array $credentials)
     {
-        $emailFields = ['username', 'email'];
-        foreach ($emailFields as $emailField) {
-            if (array_key_exists($emailField, $credentials)) {
-                return $this->createModel()->newQuery()->where('email', '=', $credentials[$emailField])->where('active', '=', 1)->first();
-            }
+        if (array_key_exists('username', $credentials)) {
+            $credentials['email'] = $credentials['username'];
+            unset($credentials['username']);
         }
-        throw new \ErrorException('Credentials must have one of: '.implode(', ', $emailFields));
+        return parent::retrieveByCredentials($credentials);
     }
 
 }

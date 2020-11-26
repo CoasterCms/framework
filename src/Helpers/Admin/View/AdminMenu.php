@@ -22,7 +22,7 @@ class AdminMenu
                 'icon' => 'fa fa-tv'
             ],
             'Help' => [
-                'link' => config('coaster::admin.help_link') . '" target="_blank',
+                'link' => config('coaster.admin.help_link') . '" target="_blank',
                 'icon' => 'fa fa-life-ring'
             ]
         ];

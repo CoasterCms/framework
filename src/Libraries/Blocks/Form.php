@@ -53,7 +53,7 @@ class Form extends AbstractBlock
             $formTemplates = Cache::get($this->_displayedTemplatesKey, []);
             $formTemplates[] = $view;
             $formTemplates = array_unique($formTemplates);
-            Cache::put($this->_displayedTemplatesKey, $formTemplates, 60 + abs((int)config('coaster::frontend.cache')));
+            Cache::put($this->_displayedTemplatesKey, $formTemplates, 60 + abs((int)config('coaster.frontend.cache')));
         }
         return FormWrap::view($this->_block, $options, $this->displayView($view), ['form_data' => $formData]);
     }
@@ -96,7 +96,7 @@ class Form extends AbstractBlock
      */
     public function submissionSendEmail(array $formData, \stdClass $form_settings)
     {
-        $subject = config('coaster::site.name') . ': New Form Submission - ' . $this->_block->label;
+        $subject = config('coaster.site.name') . ': New Form Submission - ' . $this->_block->label;
         return Email::sendFromFormData([$form_settings->template, $this->_block->name], $formData, $subject, $form_settings->email_to, $form_settings->email_from);
     }
 
@@ -168,7 +168,7 @@ class Form extends AbstractBlock
 
         $this->_editViewData['pageList'] = Page::get_page_list();
         $this->_editViewData['formTemplates'] = [0 => '-- Use view from template --'];
-        $theme = Theme::find(config('coaster::frontend.theme'));
+        $theme = Theme::find(config('coaster.frontend.theme'));
         if (!empty($theme)) {
             $forms = base_path('/resources/views/themes/' . $theme->theme . '/blocks/forms');
             if (is_dir($forms)) {

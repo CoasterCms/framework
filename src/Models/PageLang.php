@@ -29,8 +29,8 @@ class PageLang extends Eloquent
     {
         if (!static::_preloadIsset() || $force) {
             $languages = [Language::current()];
-            if (config('coaster::frontend.language_fallback') == 1 &&  !in_array(config('coaster::frontend.language'), $languages)) {
-                $languages[] = config('coaster::frontend.language');
+            if (config('coaster.frontend.language_fallback') == 1 &&  !in_array(config('coaster.frontend.language'), $languages)) {
+                $languages[] = config('coaster.frontend.language');
             }
             foreach ($languages as $language) {
                 $data = self::where('language_id', '=', $language)->get();

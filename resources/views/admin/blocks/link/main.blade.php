@@ -12,7 +12,7 @@
                 {!! Form::text($name.'[custom]', $content['link'], ['id' => $link_field_id, 'class' => 'form-control custom-link']) !!}
                 <span class="input-group-addon">or</span>
                 <span class="input-group-btn">
-                    <a href="{!! URL::to(config('coaster::admin.public').'/filemanager/dialog.php?type=2&field_id='.$link_field_id) !!}"
+                    <a href="{!! URL::to(config('coaster.admin.public').'/filemanager/dialog.php?type=2&field_id='.$link_field_id) !!}"
                        class="btn btn-default iframe-btn">Select Doc</a>
                 </span>
             </div>

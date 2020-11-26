@@ -147,7 +147,7 @@
 
 </script>
 
-<?php $assets_path = URL::to(config('coaster::admin.public').'/jquery/gallery-upload') ?>
+<?php $assets_path = URL::to(config('coaster.admin.public').'/jquery/gallery-upload') ?>
 
         <!-- The Templates plugin is included to render the upload/download listings -->
 <script src="{!! $assets_path !!}/js/external/tmpl.min.js"></script>
@@ -174,7 +174,7 @@
 <!-- The File Upload user interface plugin -->
 <script src="{!! $assets_path !!}/js/jquery.fileupload-ui.js"></script>
 <!-- The main application script -->
-<script src="{!! URL::to(config('coaster::admin.public')) !!}/app/js/gallery.js"></script>
+<script src="{!! URL::to(config('coaster.admin.public')) !!}/app/js/gallery.js"></script>
 @stop
 
 @section('styles')

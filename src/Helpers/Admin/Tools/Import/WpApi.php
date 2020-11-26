@@ -366,7 +366,7 @@ class WpApi
       if ( ! empty($date_block)) {
         $date_block->setPageId($page->id)->getTypeObject()->save($this->carbonDate($data->date)->format("Y-m-d H:i:s"));
       }
-      $title_block = Block::where('name', '=', config('coaster::admin.title_block'))->first();
+      $title_block = Block::where('name', '=', config('coaster.admin.title_block'))->first();
       if (!empty($title_block)) {
           $title_block->setPageId($page->id)->getTypeObject()->save($pageLang->name);
       }

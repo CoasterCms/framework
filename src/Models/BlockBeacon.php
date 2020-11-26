@@ -41,8 +41,8 @@ Class BlockBeacon extends Eloquent
             }
             try {
                 $enabledDrivers = [
-                    'Kontakt' => config('coaster::key.kontakt'),
-                    'Estimote' => config('coaster::key.estimote')
+                    'Kontakt' => config('coaster.key.kontakt'),
+                    'Estimote' => config('coaster.key.estimote_key')
                 ];
 
                 $devicesData = [];
@@ -203,7 +203,7 @@ Class BlockBeacon extends Eloquent
                 try {
                     $bitlyResponse = json_decode(self::_bitly()->request('GET', 'v3/shorten', [
                         'query' => [
-                            'access_token' => config('coaster::key.bitly'),
+                            'access_token' => config('coaster.key.bitly'),
                             'longUrl' => $pageUrl.'?beacon_id='.$uniqueId
                         ]
                     ])->getBody());
@@ -261,7 +261,7 @@ Class BlockBeacon extends Eloquent
         try {
             $bitlyResponse = json_decode(self::_bitly()->request('GET', 'v3/user/info', [
                 'query' => [
-                    'access_token' => config('coaster::key.bitly')
+                    'access_token' => config('coaster.key.bitly')
                 ]
             ])->getBody());
         } catch (RequestException $e) {

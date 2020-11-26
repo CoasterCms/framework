@@ -68,7 +68,7 @@ class ThemesController extends Controller
                     if (isset($databaseThemes[$themeFolder])) {
                         $theme->id = $databaseThemes[$themeFolder]->id;
                         $theme->install = 0;
-                        $theme->active = ($databaseThemes[$themeFolder]->id == config('coaster::frontend.theme'));
+                        $theme->active = ($databaseThemes[$themeFolder]->id == config('coaster.frontend.theme'));
                     } else {
                         $theme->id = 0;
                         $theme->install = 1;

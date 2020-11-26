@@ -18,7 +18,7 @@ class BackupsController extends Controller
             }
             foreach ($logIds as $logId) {
                 $log = AdminLog::find($logId);
-                if ($log && ((time() - strtotime($log->created_at)) < config('coaster::admin.undo_time') && $log->user_id == Auth::user()->id) || Auth::action('backups.restore')) {
+                if ($log && ((time() - strtotime($log->created_at)) < config('coaster.admin.undo_time') && $log->user_id == Auth::user()->id) || Auth::action('backups.restore')) {
                     if (Backup::restore($logId) == 1) {
                         AdminLog::new_log('Restored log ID #' . $logId);
                     } else {

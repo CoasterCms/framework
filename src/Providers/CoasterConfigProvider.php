@@ -25,20 +25,16 @@ class CoasterConfigProvider extends ServiceProvider
      */
     public function boot()
     {
+        // overwrite config files with settings in database table, only works post-boot which is normall good enough
+        // also doesn't overwrite any data with blanks
+        // some settings may have been used in providers register() , if needed to change pre-boot change in files
         $db = false;
         try {
             if (Schema::hasTable('settings')) {
                 $db = true;
+                Setting::loadAll('coaster');
             }
-        } catch (\PDOException $e) {
-        }
-
-        $configFile = __DIR__ . '/../../config';
-        $useDatabaseSettings = $db;
-
-        event(new LoadConfig($configFile, $useDatabaseSettings));
-
-        Setting::loadAll($configFile, 'coaster', $useDatabaseSettings);
+        } catch (\PDOException $e) {}
 
         if (Install::isComplete()) {
             if (!$db) {
@@ -55,7 +51,16 @@ class CoasterConfigProvider extends ServiceProvider
      */
     public function register()
     {
+        // register default config
+        $this->mergeConfigFrom(realpath(__DIR__ . '/../../config/coaster.php'), 'coaster');
 
+        // override auth & croppa
+        $overrides = $this->app['config']->get('coaster.overrides', []);
+        foreach ($overrides as $key => $value) {
+            if (!is_null($value)) {
+                $this->app['config']->set($key, $value);
+            }
+        }
     }
 
     /**

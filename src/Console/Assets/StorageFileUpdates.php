@@ -18,7 +18,7 @@ class StorageFileUpdates extends AbstractAsset
 
         // changed location as of v5.2.39
         $oldFolder = storage_path('app');
-        $newFolder = storage_path(config('coaster::site.storage_path'));
+        $newFolder = storage_path(config('coaster.site.storage_path'));
         foreach ($filesToMove as $fileToMove) {
             if (file_exists($oldFolder . '/' . $fileToMove)) {
                 File::move($oldFolder . '/' . $fileToMove, $newFolder . '/' . $fileToMove);

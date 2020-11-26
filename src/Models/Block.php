@@ -62,9 +62,9 @@ class Block extends Eloquent
     public static function getBlockOnPage($blockId, $pageId)
     {
         if ($page = Page::find($pageId)) {
-            $blocksByCat = ThemeTemplate::templateBlocks(config('coaster::frontend.theme'), $page->template);
+            $blocksByCat = ThemeTemplate::templateBlocks(config('coaster.frontend.theme'), $page->template);
         } else {
-            $blocksByCat = Theme::theme_blocks(config('coaster::frontend.theme'));
+            $blocksByCat = Theme::theme_blocks(config('coaster.frontend.theme'));
         }
         foreach ($blocksByCat as $blocks) {
             foreach ($blocks as $block) {

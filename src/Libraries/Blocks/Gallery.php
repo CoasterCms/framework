@@ -122,7 +122,7 @@ class Gallery extends AbstractBlock
             $galleryData[$image]->order = $order++;
         }
         $this->_block->updateContent(serialize($galleryData));
-        if ($this->_block->getPageId() && !config('coaster::admin.publishing')) { // update live page if no publishing
+        if ($this->_block->getPageId() && !config('coaster.admin.publishing')) { // update live page if no publishing
             PageVersion::latest_version($this->_block->getPageId(), true)->publish();
         }
         return 1;
@@ -138,7 +138,7 @@ class Gallery extends AbstractBlock
         if (!empty($galleryData[Request::input('file_data')])) {
             $galleryData[Request::input('file_data')]->caption = Request::input('caption');
             $this->_block->updateContent(serialize($galleryData));
-            if ($this->_block->getPageId() && !config('coaster::admin.publishing')) { // update live page if no publishing
+            if ($this->_block->getPageId() && !config('coaster.admin.publishing')) { // update live page if no publishing
                 PageVersion::latest_version($this->_block->getPageId(), true)->publish();
             }
             return 1;
@@ -201,7 +201,7 @@ class Gallery extends AbstractBlock
             $currentData[$uploadHandler->name]->path = '/' . $this->_block->getPageId() . '/';
             $this->_block->updateContent(serialize($currentData));
         }
-        if ($this->_block->getPageId() && !config('coaster::admin.publishing')) { // update live page if no publishing
+        if ($this->_block->getPageId() && !config('coaster.admin.publishing')) { // update live page if no publishing
             PageVersion::latest_version($this->_block->getPageId(), true)->publish();
         }
         return $uploadHandler->get_response();
