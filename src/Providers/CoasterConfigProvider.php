@@ -1,10 +1,7 @@
 <?php namespace CoasterCms\Providers;
 
-use CoasterCms\Events\Cms\LoadConfig;
-use CoasterCms\Events\Cms\LoadedConfig;
 use CoasterCms\Facades\Install;
 use CoasterCms\Models\Setting;
-use CoasterCms\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Schema;
 

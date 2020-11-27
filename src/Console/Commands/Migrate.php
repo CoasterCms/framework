@@ -26,7 +26,7 @@ class Migrate extends Command
     public function handle()
     {
         $this->call('migrate',
-            ['--path' => 'vendor/web-feet/coasterframework/database/migrations']
+            ['--path' => substr(coaster_base_path('database/migrations'), strlen(base_path().'/'))] // relative path from base
         );
     }
 

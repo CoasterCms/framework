@@ -69,7 +69,7 @@ class AccountController extends Controller
                     if (empty($failures)) {
                         $view_data['success'] = 'We have sent an email to you with a link to change your password.';
                     } else {
-                        FormMessage::add('email', 'There was an error sending mail, please contact <a href="mailto:support@web-feet.co.uk?Subject=' . config('coaster.site.name') . ': Forgotten Password">support</a>.');
+                        FormMessage::add('email', 'There was an error sending mail, please check you server mail configuration.');
                     }
                 }
             } else {

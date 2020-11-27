@@ -15,7 +15,7 @@ class SubmitFormData
     public $formData;
 
     /**
-     * LoadConfig constructor.
+     * SubmitFormData constructor.
      * @param Block $block
      * @param array $formData
      */

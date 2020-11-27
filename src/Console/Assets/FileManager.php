@@ -22,7 +22,7 @@ class FileManager extends AbstractAsset
 
         File::insertAtLine($this->_baseFolder . '/config/config.php', [
             558 => [
-                'require __DIR__ .\'/../../../../vendor/web-feet/coasterframework/hooks/laravel.php\';',
+                'require \''.coaster_base_path('hooks/laravel.php').'\';',
                 '\CoasterCms\Helpers\Admin\FileManager::accessCheck();',
                 '\CoasterCms\Helpers\Admin\FileManager::setConfig($config, []);',
                 ''

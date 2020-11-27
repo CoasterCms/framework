@@ -12,8 +12,8 @@ class Themes extends AbstractAsset
     public function run()
     {
         $this->downloadZip(
-            'https://github.com/Web-Feet/coasterthemes/archive/master.zip',
-            ['coasterthemes-master' => resource_path('views/themes')],
+            'https://github.com/CoasterCms/themes/archive/master.zip',
+            ['themes-master' => resource_path('views/themes')],
             'GET',
             [],
             false,

@@ -37,7 +37,7 @@ Class Setting extends Eloquent
                       'base_uri' => 'https://api.github.com/repos/'
                   ]
               );
-              $latestRelease = json_decode($gitHub->request('GET', 'Web-Feet/coasterframework/releases/latest')->getBody());
+              $latestRelease = json_decode($gitHub->request('GET', 'coastercms/framework/releases/latest')->getBody());
               Cache::put('coaster::site.version', $latestRelease->tag_name, 30);
           } catch (\Exception $e) {
               return 'not-found';
