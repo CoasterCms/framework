@@ -6,7 +6,7 @@
   <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://poser.pugx.org/coastercms/framework/license.svg"></a>
 </p>
 
-This is the codebase for Coaster CMS - all the inner workings are here and it is designed to work in conjunction with the Coaster CMS framework (https://github.com/Web-Feet/coastercms).
+This is the codebase for Coaster CMS - all the inner workings are here and it is designed to work in conjunction with the Coaster CMS framework (https://github.com/CoasterCms/coastercms).
 
 You can also use this as a stand-alone library to add content management functionality to your project.
 
