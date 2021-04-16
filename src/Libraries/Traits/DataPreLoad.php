@@ -79,7 +79,7 @@ trait DataPreLoad
      * @param string|array $key
      * @return mixed|null
      */
-    protected static function _preloadGet($customDataSetKey = 'default', $key)
+    protected static function _preloadGet($key, $customDataSetKey = 'default')
     {
         $data = static::_preloadGetArray($customDataSetKey);
         $key = is_array($key) ? $key : [$key];
@@ -107,7 +107,7 @@ trait DataPreLoad
      * @param string $identifier
      * @param mixed $value
      */
-    protected static function _preloadAdd($customDataSetKey = 'default', $identifier, $value)
+    protected static function _preloadAdd($identifier, $value, $customDataSetKey = 'default')
     {
         if (!static::_preloadIsset($customDataSetKey)) {
             static::$_preLoadedCustomData[$customDataSetKey] = [];
