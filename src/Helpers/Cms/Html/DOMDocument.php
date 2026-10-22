@@ -22,7 +22,7 @@ class DOMDocument extends \DOMDocument
     {
         libxml_use_internal_errors(true);
         $sourceNoJs = $this->_removeJs($source);
-        $htmlEntitiesSource = \mb_convert_encoding($sourceNoJs, 'HTML-ENTITIES', 'UTF-8');
+        $htmlEntitiesSource = \mb_encode_numericentity($sourceNoJs, [0x80, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8');
         parent::loadHTML($htmlEntitiesSource, $options);
         $bodyNode = $this->getElementsByTagName('body')->item(0);
         $this->loadNodes($bodyNode);

@@ -20,7 +20,7 @@ class LoadMiddleware
     public function __construct(&$globalMiddleware, &$routerMiddleware)
     {
         $this->globalMiddleware = &$globalMiddleware;
-        $this->frontendViews = &$routerMiddleware;
+        $this->routerMiddleware = &$routerMiddleware;
     }
     
     /**

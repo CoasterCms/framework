@@ -15,7 +15,7 @@ class GuestAuth
     public function handle($request, Closure $next)
     {
         if (Auth::admin()) {
-            if ($login_path = $request->get('login_path') ?: $request->cookie('login_path')) {
+            if ($login_path = $request->input('login_path') ?: $request->cookie('login_path')) {
                 return \redirect($login_path)
                     ->withCookie(cookie('login_path', null, -2628000));
             } else {

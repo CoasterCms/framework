@@ -14,12 +14,11 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "doctrine/dbal": "^2.6|^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^10.0",
-        "laravelcollective/html": "~6.2",
+        "laravel/framework": "^11.0",
         "bkwld/croppa": "^8.0.1",
-        "blueimp/jquery-file-upload": "9.19.1"
+        "blueimp/jquery-file-upload": "9.19.1",
+        "laravellux/html": "^7.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3.3",

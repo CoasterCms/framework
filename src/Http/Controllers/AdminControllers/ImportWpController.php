@@ -11,7 +11,7 @@ class ImportWpController extends Controller
 {
   public function postImport()
   {
-    $url = request()->get('blog_url');
+    $url = request()->input('blog_url');
     $wpImport = new WpApi($url);
     $ret = $wpImport->importPosts();
 

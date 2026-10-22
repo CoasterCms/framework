@@ -321,10 +321,10 @@ class ThemesController extends Controller
     public function postEdit(\Illuminate\Http\Request $request)
     {
         try {
-            $theme_id = $request->get('theme_id');
+            $theme_id = $request->input('theme_id');
             $theme = Theme::find($theme_id);
-            $file = $request->get('file');
-            $path = $request->get('path');
+            $file = $request->input('file');
+            $path = $request->input('path');
             $f = fopen($path,"w");
             fwrite($f, $file);
             AdminLog::new_log('Theme: \'' . $theme->theme . '\' updated (Page ID ' . $theme->id . ')');
@@ -336,7 +336,7 @@ class ThemesController extends Controller
 
     public function loadTemplateFile(\Illuminate\Http\Request $request)
     {
-        $tf = $request->get('template');
+        $tf = $request->input('template');
         return response(['file' => file_get_contents($tf), 'path' => $tf]);
     }
 
@@ -367,7 +367,7 @@ class ThemesController extends Controller
             }
         }
 
-        $rules = Request::get('rule');
+        $rules = Request::input('rule');
         if (!empty($rules)) {
             foreach ($rules as $rule) {
                 $inputRules[$rule['field']] = $rule['rule'];
@@ -453,9 +453,9 @@ class ThemesController extends Controller
 
         if ($import) {
 
-            $optionText = Request::get('selectOptionText');
-            $optionValue = Request::get('selectOptionValue');
-            $importOption = Request::get('selectOptionImport');
+            $optionText = Request::input('selectOptionText');
+            $optionValue = Request::input('selectOptionValue');
+            $importOption = Request::input('selectOptionImport');
 
             $importUrls = [
                 'fa-4.6' => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css'
@@ -477,7 +477,7 @@ class ThemesController extends Controller
 
         } else {
 
-            $options = Request::get('selectOption');
+            $options = Request::input('selectOption');
             if (!empty($options)) {
                 foreach ($options as $option) {
                     $inputOptions[$option['value']] = $option['option'];

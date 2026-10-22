@@ -16,8 +16,8 @@ class AdminSearchController extends Controller
 
   function search(Request $request)
   {
-    $q = $request->get('q');
-    $searchEntity = $request->get('search_entity');
+    $q = $request->input('q');
+    $searchEntity = $request->input('search_entity');
 
     $searchres = $searchEntity::adminSearch($q);
     if ($searchres->count() == 0)

@@ -37,6 +37,11 @@ class PageLoader
     public $customTemplate;
 
     /**
+     * @var bool
+     */
+    public $searchRequired;
+
+    /**
      * @var false|string
      */
     public $feedExtension;
@@ -180,7 +185,7 @@ class PageLoader
 
         }
 
-        if($customTemplate = Request::get('external')) {
+        if($customTemplate = Request::input('external')) {
             $this->customTemplate = 'externals.' . $customTemplate;
         }
 

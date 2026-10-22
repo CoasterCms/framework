@@ -88,7 +88,7 @@ class CmsServiceProvider extends ServiceProvider
 
         // register third party providers (above config provider as that contains config overrides)
         $this->app->register('Bkwld\Croppa\CroppaServiceProvider');
-        $this->app->register('Collective\Html\HtmlServiceProvider');
+        $this->app->register('LaravelLux\Html\HtmlServiceProvider');
 
         // register coaster providers
         $this->app->register('CoasterCms\Providers\CoasterEventsProvider');
@@ -130,8 +130,8 @@ class CmsServiceProvider extends ServiceProvider
 
         // register aliases
         $loader = AliasLoader::getInstance();
-        $loader->alias('Form', 'Collective\Html\FormFacade');
-        $loader->alias('HTML', 'Collective\Html\HtmlFacade');
+        $loader->alias('Form', 'LaravelLux\Html\FormFacade');
+        $loader->alias('HTML', 'LaravelLux\Html\HtmlFacade');
         $loader->alias('CmsBlockInput', 'CoasterCms\Helpers\Cms\View\CmsBlockInput');
         $loader->alias('FormMessage', 'CoasterCms\Facades\FormMessage');
         $loader->alias('AssetBuilder', 'CoasterCms\Libraries\Builder\AssetBuilder');
@@ -151,7 +151,7 @@ class CmsServiceProvider extends ServiceProvider
             'CoasterCms\Providers\CoasterConsoleProvider',
             'CoasterCms\Providers\CoasterPageBuilderProvider',
             'Bkwld\Croppa\CroppaServiceProvider',
-            'Collective\Html\HtmlServiceProvider'
+            'LaravelLux\Html\HtmlServiceProvider'
         ];
     }
 

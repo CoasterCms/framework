@@ -174,7 +174,7 @@ class Page extends Eloquent
         foreach ($pageIds as $pageId) {
             $pages[$pageId] = static::preload($pageId);
         }
-        uasort($pages, ['self', '_orderAsc']);
+        uasort($pages, [self::class, '_orderAsc']);
         return $pages;
     }
 

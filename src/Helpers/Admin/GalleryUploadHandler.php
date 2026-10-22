@@ -83,7 +83,7 @@ class GalleryUploadHandler extends \UploadHandler
                     }
                 }
             }
-            usort($content['files'], ['self', 'order_items']);
+            usort($content['files'], [self::class, 'order_items']);
         }
         return parent::generate_response($content, $print_response);
     }

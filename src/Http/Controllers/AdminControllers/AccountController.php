@@ -161,7 +161,7 @@ class AccountController extends Controller
 
     public function postLanguage()
     {
-        $input = Request::get('language');
+        $input = Request::input('language');
         Language::set($input);
         return \redirect()->route('coaster.admin.account.language');
     }

@@ -24,6 +24,11 @@ class PageCache
     protected $_keys;
 
     /**
+     * @var int seconds
+     */
+    protected $_cacheFor;
+
+    /**
      *
      */
     const PAGE_CACHE_KEY = 'fpc_page';

@@ -40,7 +40,7 @@ class ThemeTemplate extends Eloquent
         }
         // order theme/template blocks properly in each category/tab
         foreach ($blocks as $categoryId => $block) {
-            uasort($blocks[$categoryId], ['self', 'order_blocks']);
+            uasort($blocks[$categoryId], [self::class, 'order_blocks']);
         }
         return $blocks;
     }
