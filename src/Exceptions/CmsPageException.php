@@ -18,7 +18,7 @@ class CmsPageException extends Exception
      * @param Exception|null $previous
      * @param Response|null $alternateResponse
      */
-    public function __construct($message, $code = 0, Exception $previous = null, Response $alternateResponse = null)
+    public function __construct($message, $code = 0, ?Exception $previous = null, ?Response $alternateResponse = null)
     {
         $this->_alternateResponse = $alternateResponse;
         parent::__construct($message, $code, $previous);

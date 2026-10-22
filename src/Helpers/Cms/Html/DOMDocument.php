@@ -18,6 +18,7 @@ class DOMDocument extends \DOMDocument
         ];
     }
 
+    #[\ReturnTypeWillChange]
     public function loadHTML($source, $options = 0)
     {
         libxml_use_internal_errors(true);
@@ -45,13 +46,13 @@ class DOMDocument extends \DOMDocument
     }
 
     #[\ReturnTypeWillChange]
-    public function saveHTML(DOMNode $node = null)
+    public function saveHTML(?DOMNode $node = null)
     {
         $html = parent::saveHTML($node);
         return $this->_reInsertJs($html);
     }
 
-    public function saveInnerHTML(DOMNode $node = null)
+    public function saveInnerHTML(?DOMNode $node = null)
     {
         $innerHTML = '';
         foreach ($node->childNodes as $childNode) {

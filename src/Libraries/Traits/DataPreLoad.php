@@ -28,6 +28,7 @@ trait DataPreLoad
         if (!static::_preloadIsset() || $force || $refreshPreloads) {
             static::_preload();
         }
+        $key = $key ?? '';
         return !empty(static::$_preLoadedData[$key]) ? static::$_preLoadedData[$key] : new static;
     }
 
@@ -79,12 +80,12 @@ trait DataPreLoad
      * @param string|array $key
      * @return mixed|null
      */
-    protected static function _preloadGet($customDataSetKey = 'default', $key)
+    protected static function _preloadGet($customDataSetKey, $key)
     {
         $data = static::_preloadGetArray($customDataSetKey);
         $key = is_array($key) ? $key : [$key];
         foreach ($key as $keyPart) {
-            if (array_key_exists($keyPart, $data)) {
+            if (array_key_exists($keyPart ?? '', $data)) {
                 $data = $data[$keyPart];
             } else {
                 return null;
@@ -107,7 +108,7 @@ trait DataPreLoad
      * @param string $identifier
      * @param mixed $value
      */
-    protected static function _preloadAdd($customDataSetKey = 'default', $identifier, $value)
+    protected static function _preloadAdd($customDataSetKey, $identifier, $value)
     {
         if (!static::_preloadIsset($customDataSetKey)) {
             static::$_preLoadedCustomData[$customDataSetKey] = [];

@@ -101,7 +101,7 @@ class PageBuilder implements \CoasterCms\Contracts\PageBuilder
     public function getInstance($name = null)
     {
         $this->_activeInstance = is_null($name) ? $this->_activeInstance : $name;
-        if (!array_key_exists($this->_activeInstance, $this->_instances)) {
+        if (!array_key_exists($this->_activeInstance ?? '', $this->_instances)) {
             $this->setInstance($this->_activeInstance);
         }
         return $this;

@@ -143,7 +143,7 @@ class UserRole extends Eloquent
         return !empty($this->_allowed_page_actions[$page_id]) ? $this->_allowed_page_actions[$page_id] : [];
     }
 
-    private function _edit_allowed_action($action_id, $set = true, $page_id)
+    private function _edit_allowed_action($action_id, $set, $page_id)
     {
         $action = AdminAction::preload($action_id);
         $controller = AdminController::preload($action->controller_id);
