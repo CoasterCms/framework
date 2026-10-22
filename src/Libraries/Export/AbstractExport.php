@@ -140,12 +140,12 @@ abstract class AbstractExport
         $csvFile = $exportFile ?: $this->_exportFile;
         @mkdir(dirName($csvFile), 0777, true);
         $csvHandle = fopen($csvFile, 'w');
-        fputcsv($csvHandle, $this->_exportHeader);
+        fputcsv($csvHandle, $this->_exportHeader, ',', '"', '\\');
          if (method_exists($this, '_orderData')) {
              usort($this->_exportData, [$this, '_orderData']);
          }
         foreach ($this->_exportData as $rowData) {
-            fputcsv($csvHandle, $rowData);
+            fputcsv($csvHandle, $rowData, ',', '"', '\\');
         }
         fclose($csvHandle);
     }

@@ -39,7 +39,7 @@ class PageRedirect extends Eloquent
     {
         if (file_exists(public_path() . '/uploads/import/links.csv')) {
             if (($handle = fopen(public_path() . '/uploads/import/links.csv', "r")) !== FALSE) {
-                while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
+                while (($row = fgetcsv($handle, 1000, ',', '"', '\\')) !== FALSE) {
                     if (!empty($row[0]) && !empty($row[1])) {
                         $redirect = new PageRedirect;
                         $redirect->redirect = $row[0];

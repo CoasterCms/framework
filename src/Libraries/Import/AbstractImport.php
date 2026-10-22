@@ -170,7 +170,7 @@ abstract class AbstractImport
         if (file_exists($this->_importFile) && !is_dir($this->_importFile) && is_readable($this->_importFile)) {
             if (($handle = fopen($this->_importFile, 'r')) !== false) {
                 $headerRow = [];
-                while (($importRow = fgetcsv($handle, 1000, ',')) !== false) {
+                while (($importRow = fgetcsv($handle, 1000, ',', '"', '\\')) !== false) {
                     if (!$headerRow) {
                         $headerRow = $importRow;
                     } else {

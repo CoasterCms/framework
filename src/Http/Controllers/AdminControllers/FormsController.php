@@ -155,7 +155,7 @@ class FormsController extends Controller
                 header("Expires: 0");
                 $output = fopen("php://output", "w");
                 foreach ($csv as $csv_row) {
-                    fputcsv($output, $csv_row); // here you can change delimiter/enclosure
+                    fputcsv($output, $csv_row, ',', '"', '\\'); // here you can change delimiter/enclosure
                 }
                 fclose($output);
             }
