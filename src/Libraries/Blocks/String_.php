@@ -21,7 +21,7 @@ class String_ extends AbstractBlock
                 function ($matches) {
                     return str_replace('"', "'", strip_tags(PageBuilder::block($matches['block'])));
                 },
-                $content
+                $content ?? ''
             );
             $content = str_replace('%page_name%', PageBuilder::pageName(), $content);
             $content = str_replace('%site_name%', config('coaster.site.name'), $content);

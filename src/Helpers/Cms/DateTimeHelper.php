@@ -11,7 +11,7 @@ class DateTimeHelper
         if (!is_a($dateTime, Carbon::class)) {
             $dateTime = new Carbon($dateTime);
         }
-        return $dateTime->format(config('coaster.date.format.'.$format));
+        return $dateTime->format(config('coaster.format.'.$format) ?: config('coaster.format.long'));
     }
 
     public static function displaySeconds($seconds) {

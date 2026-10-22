@@ -44,6 +44,7 @@ class DOMDocument extends \DOMDocument
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function saveHTML(DOMNode $node = null)
     {
         $html = parent::saveHTML($node);
