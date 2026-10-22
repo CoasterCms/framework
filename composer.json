@@ -16,7 +16,7 @@
         "php": "^7.4|^8.0",
         "doctrine/dbal": "^2.6|^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^10.0",
         "laravelcollective/html": "~6.2",
         "bkwld/croppa": "^8.0.1",
         "blueimp/jquery-file-upload": "9.19.1"
