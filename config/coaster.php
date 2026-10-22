@@ -86,8 +86,12 @@
      */
     'overrides' => [
         'auth.guards.web' => ['driver' => 'coaster-guard', 'provider' => 'coaster-user'],
-        'croppa.src_dir' => public_path(),
-        'croppa.crops_dir' => public_path().'/cache',
+        // croppa 5+ reads and writes through filesystem disks rather than directories
+        'filesystems.disks.coaster-public' => ['driver' => 'local', 'root' => public_path()],
+        'filesystems.disks.coaster-crops' => ['driver' => 'local', 'root' => public_path('cache'), 'url' => '/cache'],
+        'croppa.src_disk' => 'coaster-public',
+        'croppa.crops_disk' => 'coaster-crops',
+        'croppa.tmp_disk' => 'coaster-crops',
         'croppa.path' => 'cache/(coaster.*|uploads.*|themes.*)',
         'croppa.url_replace' => ['/^(coaster.*|uploads.*|themes.*)\//' => 'cache/$1/'],
     ],

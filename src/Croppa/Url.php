@@ -11,7 +11,8 @@ class Url extends BaseUrl
      * @param string $url
      * @return string path
      */
-    public function toPath($url) {
+    public function toPath(string $url): string
+    {
         $path = parent::toPath($url);
         $replaces = $this->config['url_replace'] ?: [];
         foreach ($replaces as $replacePattern => $replacement) {

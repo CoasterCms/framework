@@ -87,7 +87,7 @@ class CmsServiceProvider extends ServiceProvider
         }
 
         // register third party providers (above config provider as that contains config overrides)
-        $this->app->register('Bkwld\Croppa\ServiceProvider');
+        $this->app->register('Bkwld\Croppa\CroppaServiceProvider');
         $this->app->register('Collective\Html\HtmlServiceProvider');
 
         // register coaster providers
@@ -150,7 +150,7 @@ class CmsServiceProvider extends ServiceProvider
             'CoasterCms\Providers\CoasterEventsProvider',
             'CoasterCms\Providers\CoasterConsoleProvider',
             'CoasterCms\Providers\CoasterPageBuilderProvider',
-            'Bkwld\Croppa\ServiceProvider',
+            'Bkwld\Croppa\CroppaServiceProvider',
             'Collective\Html\HtmlServiceProvider'
         ];
     }
